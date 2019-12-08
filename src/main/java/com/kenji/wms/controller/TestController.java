@@ -11,4 +11,19 @@ public class TestController {
     public String test(){
         return "test";
     }
+
+    @RequestMapping("/404")
+    public String errorPage(){
+        return "404";
+    }
+
+    @RequestMapping("/login")
+    public String loginTest(){
+        return "login";
+    }
+
+    @RequestMapping("/tables")
+    public String loginTable(){
+        return "tables";
+    }
 }
