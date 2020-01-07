@@ -3,7 +3,8 @@ build/
 out/
 *.log
 *.log.*
-out/
 target/
 .gradle
 .DS_Store
+.idea
+.gradle/
