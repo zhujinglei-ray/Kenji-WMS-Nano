@@ -360,7 +360,13 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(productID, name, description, costPrice, salePrice, eatOutPrice, categoryID, barcode, taxRateID, eatOutTaxRateID, brandID, supplierID, popupNoteID, unitOfSale, volumeOfSale, multiChoiceID, colourID, variantGroupID, size, sku, sellOnWeb, sellOnTill, orderCode, buttonColourID, sortPosition, magentoAttributeSetID, rRPrice, costPriceTaxRateID, productType, tareWeight, articleCode);
+        return Objects.hash(productID, name, description, costPrice, salePrice,
+                eatOutPrice, categoryID, barcode, taxRateID, eatOutTaxRateID,
+                brandID, supplierID, popupNoteID, unitOfSale, volumeOfSale,
+                multiChoiceID, colourID, variantGroupID, size, sku,
+                sellOnWeb, sellOnTill, orderCode, buttonColourID,
+                sortPosition, magentoAttributeSetID, rRPrice,
+                costPriceTaxRateID, productType, tareWeight, articleCode);
     }
 
     @Override
