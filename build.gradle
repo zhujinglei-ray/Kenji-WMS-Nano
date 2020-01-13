@@ -14,5 +14,6 @@ repositories {
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.1.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.1.5.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
