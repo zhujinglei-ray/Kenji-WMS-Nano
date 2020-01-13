@@ -1,0 +1,12 @@
+{
+  "StockID": 8803353,
+  "LocationID": 17595,
+  "ProductID": 19333362,
+  "CurrentStock": 35,
+  "MinStock": null,
+  "MaxStock": null,
+  "CurrentVolume": 0,
+  "OnOrder": 0,
+  "Alerts": false,
+  "CostPrice": 0.5869000000000000
+}
