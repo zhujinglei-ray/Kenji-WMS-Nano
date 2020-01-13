@@ -26,4 +26,9 @@ public class TestController {
     public String loginTable(){
         return "tables";
     }
+
+    @RequestMapping("/")
+    public String index() {
+        return "index";
+    }
 }
