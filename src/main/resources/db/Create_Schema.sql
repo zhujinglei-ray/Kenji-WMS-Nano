@@ -1,5 +1,5 @@
 -- create database kenjidb;
--- \connect kenjidb;
+\connect kenjidb;
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products(
