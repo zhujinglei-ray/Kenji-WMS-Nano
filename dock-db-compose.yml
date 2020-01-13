@@ -1,5 +1,5 @@
 version: '3.4'
-service:
+services:
   db:
     image: postgres:12-alpine
     container_name: kenji_db
