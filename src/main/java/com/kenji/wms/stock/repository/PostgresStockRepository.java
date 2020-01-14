@@ -51,7 +51,7 @@ public class PostgresStockRepository implements StockRepository {
         @Override
         public void setValues(PreparedStatement ps, int i) throws SQLException {
             String productJson = gson.toJson(products.get(i)).toString();
-            ps.setString(1, UUID.randomUUID().toString());
+            ps.setObject(1, UUID.randomUUID());
             ps.setLong(2, products.get(i).getProductID());
             ps.setString(3,  products.get(i).getBarcode());
             ps.setString(4, productJson);
