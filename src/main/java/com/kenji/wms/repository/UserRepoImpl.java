@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepoImpl {
-
     @Autowired
     JdbcTemplate jdbcTemplate;
-
 }
