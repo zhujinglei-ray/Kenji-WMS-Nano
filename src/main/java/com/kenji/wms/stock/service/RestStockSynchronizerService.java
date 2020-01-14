@@ -45,7 +45,9 @@ public class RestStockSynchronizerService implements StockSynchronizer {
 
     @Override
     public long syncProductsByPage(Integer pageNumber) throws FailQueryProductException {
+        System.out.println("Get product list from client for page " + pageNumber);
         List<Product> batch = stockQueryClient.getStocksByPageNumber(pageNumber);
+        System.out.println("Get products with size " + batch.size());
         repository.updateBatchProducts(batch);
         return batch.size();
     }
