@@ -1,38 +1,72 @@
 package com.kenji.wms.model.domainobject;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Product {
+    @JsonProperty("ProductID")
     private long productID;
+    @JsonProperty("Name")
     private String name;
+    @JsonProperty("Description")
     private String description;
+    @JsonProperty("CostPrice")
     private float costPrice;
+    @JsonProperty("SalePrice")
     private float salePrice;
+    @JsonProperty("EatOutPrice")
     private float eatOutPrice;
+    @JsonProperty("CategoryID")
     private long categoryID;
+    @JsonProperty("Barcode")
     private String barcode;
+    @JsonProperty("TaxRateID")
     private long taxRateID;
+    @JsonProperty("EatOutTaxRateID")
     private long eatOutTaxRateID;
+    @JsonProperty("BrandID")
     private long brandID;
+    @JsonProperty("SupplierID")
     private long supplierID;
+    @JsonProperty("PopupNoteID")
     private long popupNoteID;
+    @JsonProperty("UnitOfSale")
     private int unitOfSale;
+    @JsonProperty("VolumeOfSale")
     private int volumeOfSale;
+    @JsonProperty("MultiChoiceID")
     private long multiChoiceID;
+    @JsonProperty("ColourID")
     private long colourID;
+    @JsonProperty("VariantGroupID")
     private long variantGroupID;
+    @JsonProperty("Size")
     private Size size;
+    @JsonProperty("Sku")
     private Sku sku;
+    @JsonProperty("SellOnWeb")
     private boolean sellOnWeb;
+    @JsonProperty("SellOnTill")
     private boolean sellOnTill;
+    @JsonProperty("OrderCode")
     private long orderCode;
+    @JsonProperty("ButtonColourID")
     private long buttonColourID;
+    @JsonProperty("SortPosition")
     private String sortPosition;
+    @JsonProperty("MagentoAttributeSetID")
     private long magentoAttributeSetID;
+    @JsonProperty("RRPrice")
     private float rRPrice;
+    @JsonProperty("CostPriceTaxRateID")
     private long costPriceTaxRateID;
+    @JsonProperty("ProductType")
     private String productType;
+    @JsonProperty("TareWeight")
     private float tareWeight;
+    @JsonProperty("ArticleCode")
     private String articleCode;
 
     public Product(long productID, String name, String description, float costPrice, float salePrice, float eatOutPrice, long categoryID, String barcode, long taxRateID, long eatOutTaxRateID, long brandID, long supplierID, long popupNoteID, int unitOfSale, int volumeOfSale, long multiChoiceID, long colourID, long variantGroupID, Size size, Sku sku, boolean sellOnWeb, boolean sellOnTill, long orderCode, long buttonColourID, String sortPosition, long magentoAttributeSetID, float rRPrice, long costPriceTaxRateID, String productType, float tareWeight, String articleCode) {
