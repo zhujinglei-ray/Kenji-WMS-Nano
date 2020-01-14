@@ -26,7 +26,7 @@ public class PostgresStockRepository implements StockRepository {
 
     @Override
     public void updateBatchProducts(List<Product> products) {
-        String sql = "INSERT INTO products(uuid, product_id, barcode, product_json) VALUES(?, ?, ?::json) " +
+        String sql = "INSERT INTO products(uuid, product_id, barcode, product_json) VALUES(?, ?, ?, ?::json) " +
                 "ON CONFLICT set product_id=?, barcode=?, product_json=?;";
         jdbcTemplate.batchUpdate(sql, new batchProductUpdateSetter(products));
     }
@@ -53,8 +53,9 @@ public class PostgresStockRepository implements StockRepository {
             String productJson = gson.toJson(products.get(i)).toString();
             ps.setString(1, UUID.randomUUID().toString());
             ps.setLong(2, products.get(i).getProductID());
-            ps.setString(3, productJson);
-            ps.setString(4,  products.get(i).getBarcode());
+            ps.setString(3,  products.get(i).getBarcode());
+            ps.setString(4, productJson);
+
             ps.setLong(5, products.get(i).getProductID());
             ps.setString(6, products.get(i).getBarcode());
             ps.setString(7, productJson);
