@@ -19,7 +19,7 @@ public class RestProductQueryService implements ProductQueryService {
     }
 
     @Override
-    public Product getProductByBarcode(long barcode) throws FailQueryProductException {
+    public Product getProductByBarcode(String barcode) throws FailQueryProductException {
         long productId = repository.getProductIdByBarcode(barcode);
         Product product = queryClient.getProductInfoByProductId(productId);
         return product;

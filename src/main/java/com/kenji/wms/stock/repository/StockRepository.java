@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface StockRepository {
     void updateBatchProducts(List<Product> products);
-    long getProductIdByBarcode(long barcode);
+    long getProductIdByBarcode(String barcode);
 }

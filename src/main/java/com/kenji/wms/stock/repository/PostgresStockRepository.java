@@ -32,9 +32,9 @@ public class PostgresStockRepository implements StockRepository {
     }
 
     @Override
-    public long getProductIdByBarcode(long barcode) {
+    public long getProductIdByBarcode(String barcode) {
         String sql = "select product_id from products where barcode=?";
-        Long[] args = new Long[1];
+        String[] args = new String[1];
         args[0] = barcode;
         Long productId = jdbcTemplate.queryForObject(sql, args, Long.class);
         return productId;
@@ -54,9 +54,9 @@ public class PostgresStockRepository implements StockRepository {
             ps.setString(1, UUID.randomUUID().toString());
             ps.setLong(2, products.get(i).getProductID());
             ps.setString(3, productJson);
-            ps.setLong(4,  Long.parseLong(products.get(i).getBarcode()));
+            ps.setString(4,  products.get(i).getBarcode());
             ps.setLong(5, products.get(i).getProductID());
-            ps.setLong(6, Long.parseLong(products.get(i).getBarcode()));
+            ps.setString(6, products.get(i).getBarcode());
             ps.setString(7, productJson);
         }
 
