@@ -1,5 +1,6 @@
 package com.kenji.wms.controller;
 
+import com.kenji.wms.model.login.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,11 +16,11 @@ public class AuthenticationController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register() {
 		ModelAndView modelAndView = new ModelAndView();
-		// User user = new User();
-		// modelAndView.addObject("user", user); 
+		 User user = new User();
+		modelAndView.addObject("user", user);
 		modelAndView.setViewName("register"); // resources/template/register.html
 		return modelAndView;
 	}
