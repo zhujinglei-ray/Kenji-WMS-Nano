@@ -10,4 +10,4 @@ services:
       POSTGRES_PASSWORD:
       POSTGRES_DB: kenjidb
     volumes:
-      - /src/main/resources/db:/docker-entrypoint-initdb.d
+      - ./src/main/resources/db:/docker-entrypoint-initdb.d
