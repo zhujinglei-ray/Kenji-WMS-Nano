@@ -6,13 +6,12 @@ import com.kenji.wms.stock.utilis.QueryUtilise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 
+@Component
 public class RestStockQueryClient implements StockQueryClient {
     private RestTemplate restTemplate;
     private String eposnowBaseUrl;
@@ -35,7 +34,7 @@ public class RestStockQueryClient implements StockQueryClient {
     }
 
     @Override
-    public Collection<Product> getStocksByPageNumber(int pageNumber) throws FailQueryProductException {
+    public List<Product> getStocksByPageNumber(int pageNumber) throws FailQueryProductException {
         String url = eposnowBaseUrl + String.format(pageProductQueryEndpoint, pageNumber);
         HttpHeaders headers = queryUtilise.getHeaders();
         HttpEntity entity = new HttpEntity(headers);
