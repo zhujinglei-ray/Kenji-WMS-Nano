@@ -43,9 +43,9 @@ public class Product {
     @JsonProperty("VariantGroupID")
     private long variantGroupID;
     @JsonProperty("Size")
-    private Size size;
+    private String size;
     @JsonProperty("Sku")
-    private Sku sku;
+    private String sku;
     @JsonProperty("SellOnWeb")
     private boolean sellOnWeb;
     @JsonProperty("SellOnTill")
@@ -69,7 +69,7 @@ public class Product {
     @JsonProperty("ArticleCode")
     private String articleCode;
 
-    public Product(long productID, String name, String description, float costPrice, float salePrice, float eatOutPrice, long categoryID, String barcode, long taxRateID, long eatOutTaxRateID, long brandID, long supplierID, long popupNoteID, int unitOfSale, int volumeOfSale, long multiChoiceID, long colourID, long variantGroupID, Size size, Sku sku, boolean sellOnWeb, boolean sellOnTill, long orderCode, long buttonColourID, String sortPosition, long magentoAttributeSetID, float rRPrice, long costPriceTaxRateID, String productType, float tareWeight, String articleCode) {
+    public Product(long productID, String name, String description, float costPrice, float salePrice, float eatOutPrice, long categoryID, String barcode, long taxRateID, long eatOutTaxRateID, long brandID, long supplierID, long popupNoteID, int unitOfSale, int volumeOfSale, long multiChoiceID, long colourID, long variantGroupID, String size, String sku, boolean sellOnWeb, boolean sellOnTill, long orderCode, long buttonColourID, String sortPosition, long magentoAttributeSetID, float rRPrice, long costPriceTaxRateID, String productType, float tareWeight, String articleCode) {
         this.productID = productID;
         this.name = name;
         this.description = description;
@@ -250,19 +250,19 @@ public class Product {
         this.variantGroupID = variantGroupID;
     }
 
-    public Size getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Size size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
-    public Sku getSku() {
+    public String getSku() {
         return sku;
     }
 
-    public void setSku(Sku sku) {
+    public void setSku(String sku) {
         this.sku = sku;
     }
 
