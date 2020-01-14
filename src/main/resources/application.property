@@ -1,5 +1,0 @@
-eposnow.base.url=https://api.eposnowhq.com/api/V2
-stock.product.endpoint=/Product/%s
-stock.page.query.endpoint=Product?page={pageNumber}
-stock.page.query.size=200
-secret=UlQ2UkE2M09FNlVCWVgzR0RSR1VYT0EzR1kxWEhKSTk6WjkwSk9FRTI0TTJHTzhLVlJXMU02REJUTVNHWVdGRFo=

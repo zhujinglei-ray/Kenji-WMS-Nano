@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+  db:
+    image: postgres:12-alpine
+    container_name: kenji_db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD:
+      POSTGRES_DB: kenjidb
+    volumes:
+      - ./src/main/resources/db:/docker-entrypoint-initdb.d

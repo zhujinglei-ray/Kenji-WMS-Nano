@@ -45,9 +45,9 @@ public class PostgresStockRepository implements StockRepository {
             ps.setString(1, UUID.randomUUID().toString());
             ps.setLong(2, products.get(i).getProductID());
             ps.setString(3, productJson);
-            ps.setString(4, products.get(i).getBarcode());
+            ps.setLong(4,  Long.parseLong(products.get(i).getBarcode()));
             ps.setLong(5, products.get(i).getProductID());
-            ps.setString(6, products.get(i).getBarcode());
+            ps.setLong(6, Long.parseLong(products.get(i).getBarcode()));
             ps.setString(7, productJson);
         }
 
