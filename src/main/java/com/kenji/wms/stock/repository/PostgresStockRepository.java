@@ -31,6 +31,15 @@ public class PostgresStockRepository implements StockRepository {
         jdbcTemplate.batchUpdate(sql, new batchProductUpdateSetter(products));
     }
 
+    @Override
+    public long getProductIdByBarcode(long barcode) {
+        String sql = "select product_id from products where barcode=?";
+        Long[] args = new Long[1];
+        args[0] = barcode;
+        Long productId = jdbcTemplate.queryForObject(sql, args, Long.class);
+        return productId;
+    }
+
     private class batchProductUpdateSetter implements BatchPreparedStatementSetter {
 
         private List<Product> products;

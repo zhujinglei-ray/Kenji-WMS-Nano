@@ -17,7 +17,7 @@ public class ProductSyncController {
         this.synchronizer = synchronizer;
     }
 
-    @GetMapping("/sync/{pageNumber}")
+    @GetMapping(path="/sync/{pageNumber}")
     public ResponseEntity<String> syncProductsByPageNumber(@PathVariable("pageNumber") Integer pageNumber) throws FailQueryProductException {
         long totalCount = synchronizer.syncProductsByPage(pageNumber);
         return ResponseEntity.ok("Sync with " + totalCount +" products");

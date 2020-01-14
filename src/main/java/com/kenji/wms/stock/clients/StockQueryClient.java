@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface StockQueryClient {
     List<Product> getStocksByPageNumber(int pageNumber) throws FailQueryProductException;
+    Product getProductInfoByProductId(long productId) throws  FailQueryProductException;
 }

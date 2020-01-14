@@ -48,4 +48,20 @@ public class RestStockQueryClient implements StockQueryClient {
             throw new FailQueryProductException("Failed to query product for page " + pageNumber , e);
         }
     }
+
+    @Override
+    public Product getProductInfoByProductId(long productId) throws FailQueryProductException {
+        String url = eposnowBaseUrl + String.format(productQueryEndpoint, productId);
+        HttpHeaders headers = queryUtilise.getHeaders();
+        HttpEntity entity = new HttpEntity(headers);
+        try{
+            ResponseEntity<Product> product = restTemplate.exchange(url, HttpMethod.GET, entity, Product.class);
+            if (product.hasBody()) {
+                return product.getBody();
+            }
+            return null;
+        } catch (Exception e) {
+            throw new FailQueryProductException("Failed to query product for product id " + productId , e);
+        }
+    }
 }
