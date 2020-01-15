@@ -36,7 +36,7 @@ public class PostgresStockRepository implements StockRepository {
 
     @Override
     public void updateBatchProductStocks(List<ProductStock> stocks) {
-        String sql = "INSERT INTO products(stock_id, product_id, stock_json) VALUES(?, ?, ?::json) " +
+        String sql = "INSERT INTO productStock(stock_id, product_id, stock_json) VALUES(?, ?, ?::json) " +
                 "ON CONFLICT(stock_id) DO update set product_id=?, product_json=?::json;";
         jdbcTemplate.batchUpdate(sql, new batchProductStockUpdateSetter(stocks));
     }
