@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface StockRepository {
     void updateBatchProducts(List<Product> products);
+    void updateBatchProductStocks(List<ProductStock> stocks);
     long getProductIdByBarcode(String barcode);
-    List<ProductStock> getStocksByProductId(Long ProductID);
+    List<ProductStock> getStocksByProductId(Long productID);
 }

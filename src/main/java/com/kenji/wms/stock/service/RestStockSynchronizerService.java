@@ -1,6 +1,7 @@
 package com.kenji.wms.stock.service;
 
 import com.kenji.wms.model.domainobject.Product;
+import com.kenji.wms.model.domainobject.ProductStock;
 import com.kenji.wms.stock.clients.StockQueryClient;
 import com.kenji.wms.stock.exceptions.FailQueryProductException;
 import com.kenji.wms.stock.repository.StockRepository;
@@ -35,7 +36,7 @@ public class RestStockSynchronizerService implements StockSynchronizer {
         List<Product> products = new LinkedList<>();
         int pageCount = 0;
         while (true) {
-            Collection<Product> batch = stockQueryClient.getStocksByPageNumber(pageCount);
+            Collection<Product> batch = stockQueryClient.getProductsByPageNumber(pageCount);
             products.addAll(batch);
             if (batch.size() < pageSize) break;
         }
@@ -46,9 +47,18 @@ public class RestStockSynchronizerService implements StockSynchronizer {
     @Override
     public long syncProductsByPage(Integer pageNumber) throws FailQueryProductException {
         System.out.println("Get product list from client for page " + pageNumber);
-        List<Product> batch = stockQueryClient.getStocksByPageNumber(pageNumber);
+        List<Product> batch = stockQueryClient.getProductsByPageNumber(pageNumber);
         System.out.println("Get products with size " + batch.size());
         repository.updateBatchProducts(batch);
+        return batch.size();
+    }
+
+    @Override
+    public long syncStocksByPage(Integer pageNumber) throws FailQueryProductException {
+        System.out.println("Get stock list from client for page " + pageNumber);
+        List<ProductStock> batch = stockQueryClient.getStocksByPageNumber(pageNumber);
+        System.out.println("Get products with size " + batch.size());
+        repository.updateBatchProductStocks(batch);
         return batch.size();
     }
 }
