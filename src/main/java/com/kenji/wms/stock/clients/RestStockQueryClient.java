@@ -36,6 +36,8 @@ public class RestStockQueryClient implements StockQueryClient {
         this.eposnowBaseUrl = eposnowBaseUrl;
         this.productQueryEndpoint = productQueryEndpoint;
         this.pageProductQueryEndpoint = pageProductQueryEndpoint;
+        this.pageStockQueryEndpoint = pageStockQueryEndpoint;
+        this.stockQueryEndpoint = stockQueryEndpoint;
         this.queryUtilise = queryUtilise;
     }
 
