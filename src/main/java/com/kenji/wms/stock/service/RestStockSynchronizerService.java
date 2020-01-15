@@ -45,6 +45,19 @@ public class RestStockSynchronizerService implements StockSynchronizer {
     }
 
     @Override
+    public BigInteger syncAllProductStockWithStock() throws FailQueryProductException {
+        List<ProductStock> products = new LinkedList<>();
+        int pageCount = 0;
+        while (true) {
+            Collection<ProductStock> batch = stockQueryClient.getStocksByPageNumber(pageCount);
+            products.addAll(batch);
+            if (batch.size() < pageSize) break;
+        }
+        repository.updateBatchProductStocks(products);
+        return BigInteger.valueOf(products.size());
+    }
+
+    @Override
     public long syncProductsByPage(Integer pageNumber) throws FailQueryProductException {
         System.out.println("Get product list from client for page " + pageNumber);
         List<Product> batch = stockQueryClient.getProductsByPageNumber(pageNumber);
