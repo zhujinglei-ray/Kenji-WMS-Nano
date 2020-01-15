@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class PostgresStockRepository implements StockRepository {
@@ -53,8 +54,11 @@ public class PostgresStockRepository implements StockRepository {
     @Override
     public List<ProductStock> getStocksByProductId(Long productID) {
         String sql = "select stock_json from productstock where product_id=?";
-        List<ProductStock> productStocks = jdbcTemplate.queryForList(sql, ProductStock.class, productID);
-        return productStocks;
+        List<String> productStocks = jdbcTemplate.queryForList(sql, String.class, productID);
+        return productStocks
+                .stream()
+                .map(str -> gson.fromJson(str, ProductStock.class))
+                .collect(Collectors.toList());
     }
 
     private List<Product> refineProductList(List<Product> products) {
