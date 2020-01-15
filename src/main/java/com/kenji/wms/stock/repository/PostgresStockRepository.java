@@ -40,6 +40,11 @@ public class PostgresStockRepository implements StockRepository {
         return productId;
     }
 
+    @Override
+    List<ProductStock> getStocksByProductId(Long ProductID) {
+        return empty
+    }
+
     private class batchProductUpdateSetter implements BatchPreparedStatementSetter {
 
         private List<Product> products;
@@ -51,19 +56,27 @@ public class PostgresStockRepository implements StockRepository {
         @Override
         public void setValues(PreparedStatement ps, int i) throws SQLException {
             String productJson = gson.toJson(products.get(i)).toString();
-            ps.setObject(1, UUID.randomUUID());
-            ps.setLong(2, products.get(i).getProductID());
-            ps.setString(3,  products.get(i).getBarcode());
-            ps.setString(4, productJson);
-
-            ps.setLong(5, products.get(i).getProductID());
-            ps.setString(6, products.get(i).getBarcode());
-            ps.setString(7, productJson);
+            int i = 0;
+            ps.setLong(i++, products.get(i).getProductID());
+            ps.setLong(i++,  getProductBarcodeAsLong(products.get(i)));
+            ps.setString(i++, productJson);
+            ps.setLong(i++, products.get(i).getProductID());
+            ps.setLong(i++, getProductBarcodeAsLong(products.get(i)));
+            ps.setString(i++, productJson);
         }
 
         @Override
         public int getBatchSize() {
             return products.size();
+        }
+
+        private Long getProductBarcodeAsLong(Product product) {
+            String productBarcode = product.getBarcode();
+            if (productBarcode == null) {
+                return -1L;
+            } else {
+                return Long.parseLong(productBarcode);
+            }
         }
     }
 }

@@ -3,20 +3,19 @@
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products(
-    uuid               UUID PRIMARY KEY NOT NULL,
     product_id         BIGINT NOT NULL,
-    barcode            TEXT,
-    product_json       JSON NOT NULL
+    barcode            BIGINT NOT NULL,
+    product_json       JSON NOT NULL,
+    PRIMARY KEY (product_id, barcode)
 );
 
 DROP TABLE IF EXISTS productStock;
 CREATE TABLE productStock
 (
-  uuid               UUID PRIMARY KEY NOT NULL,
-  stock_id           BIGINT NOT NULL,
-  product_id         BIGINT NOT NULL,
-  barcode            TEXT,
-  stock_json         JSON NOT NULL
+  stock_id           BIGINT PRIMARY KEY NOT NULL,
+  product_id         BIGINT NOT NULL REFERENCES products(product_id),
+  barcode            BIGINT NOT NULL REFERENCES products(barcode),
+  stock_json         JSON NOT NULL,
 );
 
 DROP TABLE IF EXISTS auth_user_role;
