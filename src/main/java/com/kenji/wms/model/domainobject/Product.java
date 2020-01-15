@@ -403,6 +403,7 @@ public class Product {
                 costPriceTaxRateID, productType, tareWeight, articleCode);
     }
 
+
     @Override
     public String toString() {
         return "Product{" +

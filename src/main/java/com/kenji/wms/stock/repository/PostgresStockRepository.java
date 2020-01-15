@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +28,7 @@ public class PostgresStockRepository implements StockRepository {
 
     @Override
     public void updateBatchProducts(List<Product> products) {
+        products = refineProductList(products);
         String sql = "INSERT INTO products(product_id, barcode, product_json) VALUES(?, ?, ?, ?::json) " +
                 "ON CONFLICT(product_id, barcode) DO update set product_id=?, barcode=?, product_json=?::json;";
         jdbcTemplate.batchUpdate(sql, new batchProductUpdateSetter(products));
@@ -55,6 +57,20 @@ public class PostgresStockRepository implements StockRepository {
         return productStocks;
     }
 
+    private List<Product> refineProductList(List<Product> products) {
+        List<Product> newList = new LinkedList<>();
+        products.forEach(product -> {
+            if (product.getBarcode().contains(",")) {
+                String[] barcodes = product.getBarcode().split(",");
+                for (String barcode: barcodes) {
+                    Product newProdcut = gson.fromJson(gson.toJson(product), Product.class);
+                    newProdcut.setBarcode(barcode);
+                    newList.add(newProdcut);
+                }
+            } else {newList.add(product);}
+        });
+        return newList;
+    }
     private class batchProductUpdateSetter implements BatchPreparedStatementSetter {
 
         private List<Product> products;
