@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS productStock;
 CREATE TABLE productStock
 (
   stock_id           BIGINT PRIMARY KEY NOT NULL,
-  product_id         BIGINT NOT NULL REFERENCES products(product_id),
+  product_id         BIGINT NOT NULL,
   stock_json         JSON NOT NULL
 );
 
