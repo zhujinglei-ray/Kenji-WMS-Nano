@@ -44,8 +44,8 @@ public class PostgresStockRepository implements StockRepository {
     @Override
     public long getProductIdByBarcode(String barcode) {
         String sql = "select product_id from products where barcode=?";
-        String[] args = new String[1];
-        args[0] = barcode;
+        Long[] args = new Long[1];
+        args[0] = Long.parseLong(barcode);
         Long productId = jdbcTemplate.queryForObject(sql, args, Long.class);
         return productId;
     }
