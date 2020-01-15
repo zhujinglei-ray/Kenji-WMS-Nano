@@ -25,10 +25,17 @@ public class AuthenticationController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView home() {
+    @RequestMapping(value = {"/charts"}, method = RequestMethod.GET)
+    public ModelAndView chartsView() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home"); // resources/template/home.html
+        modelAndView.setViewName("charts"); // resources/template/login.html
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    public ModelAndView homeView() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index"); // resources/template/login.html
         return modelAndView;
     }
 }

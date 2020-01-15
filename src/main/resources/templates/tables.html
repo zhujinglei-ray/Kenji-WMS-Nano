@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-
 <head>
 
   <meta charset="utf-8">
@@ -9,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Tables</title>
+  <title>Stock View Tables</title>
 
   <!-- Custom fonts for this template -->
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +30,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -43,7 +42,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/index">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -118,14 +117,14 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/charts">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item active">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="/tables">
           <i class="fas fa-fw fa-table"></i>
           <span>Stock View Table</span></a>
       </li>
@@ -158,9 +157,17 @@
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" autocomplete="off">
+              <input type="text" name="barcodeinput" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" autocomplete="off">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="button" onclick="barcode()">
+                  <script>
+                    function barcode() {
+                      var form = document.forms[0];
+                      form.action = "http://localhost:8080/tables";
+                      form.method="get";
+                      form.submit();
+                    }
+                  </script>
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -324,7 +331,6 @@
                 </a>
               </div>
             </li>
-
           </ul>
 
         </nav>
@@ -443,22 +449,21 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../static/vendor/jquery/jquery.min.js"></script>
-  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../static/js/sb-admin-2.min.js"></script>
+  <script src="/static/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="../static/js/demo/datatables-demo.js"></script>
-
+  <script src="/static/js/demo/datatables-demo.js"></script>
 </body>
 
 </html>
