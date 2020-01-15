@@ -52,7 +52,7 @@ public class PostgresStockRepository implements StockRepository {
 
     @Override
     public List<ProductStock> getStocksByProductId(Long productID) {
-        String sql = "select stock_json from productstock where product=?";
+        String sql = "select stock_json from productstock where product_id=?";
         List<ProductStock> productStocks = jdbcTemplate.queryForList(sql, ProductStock.class, productID);
         return productStocks;
     }
