@@ -3,6 +3,7 @@ package com.kenji.wms.stock.clients;
 import com.kenji.wms.model.domainobject.Product;
 import com.kenji.wms.model.domainobject.ProductStock;
 import com.kenji.wms.stock.exceptions.FailQueryProductException;
+import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.utilis.QueryUtilise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,8 +17,6 @@ import java.util.*;
 public class RestStockQueryClient implements StockQueryClient {
     private RestTemplate restTemplate;
     private String eposnowBaseUrl;
-    private String productQueryEndpoint;
-    private String pageProductQueryEndpoint;
     private String stockQueryEndpoint;
     private String pageStockQueryEndpoint;
     private QueryUtilise queryUtilise;
@@ -25,40 +24,19 @@ public class RestStockQueryClient implements StockQueryClient {
     @Autowired
     public RestStockQueryClient(
             RestTemplate restTemplate,
+            QueryUtilise queryUtilise,
             @Value("${eposnow.base.url}") String eposnowBaseUrl,
-            @Value("${stock.product.endpoint}") String productQueryEndpoint,
-            @Value("${product.page.query.endpoint}") String pageProductQueryEndpoint,
-            @Value("${stock.page.query.endpoint}") String pageStockQueryEndpoint,
-            @Value("${stock.endpoint}") String stockQueryEndpoint,
-
-            QueryUtilise queryUtilise) {
+            @Value("${eposnow.stock.endpoint}") String stockQueryEndpoint,
+            @Value("${eposnow.stock.page.query.endpoint}") String pageStockQueryEndpoint) {
         this.restTemplate = restTemplate;
         this.eposnowBaseUrl = eposnowBaseUrl;
-        this.productQueryEndpoint = productQueryEndpoint;
-        this.pageProductQueryEndpoint = pageProductQueryEndpoint;
-        this.pageStockQueryEndpoint = pageStockQueryEndpoint;
-        this.stockQueryEndpoint = stockQueryEndpoint;
         this.queryUtilise = queryUtilise;
+        this.stockQueryEndpoint = stockQueryEndpoint;
+        this.pageStockQueryEndpoint = pageStockQueryEndpoint;
     }
 
     @Override
-    public List<Product> getProductsByPageNumber(int pageNumber) throws FailQueryProductException {
-        String url = eposnowBaseUrl + String.format(pageProductQueryEndpoint, pageNumber);
-        HttpHeaders headers = queryUtilise.getHeaders();
-        HttpEntity entity = new HttpEntity(headers);
-        try{
-            ResponseEntity<Product[]> products = restTemplate.exchange(url, HttpMethod.GET, entity, Product[].class);
-            if (products.hasBody()) {
-                return Arrays.asList(Objects.requireNonNull(products.getBody()));
-            }
-            return Collections.emptyList();
-        } catch (Exception e) {
-            throw new FailQueryProductException("Failed to query product for page " + pageNumber , e);
-        }
-    }
-
-    @Override
-    public List<ProductStock> getStocksByPageNumber(int pageNumber) throws FailQueryProductException {
+    public List<ProductStock> getStocksByPageNumber(int pageNumber) throws FailQueryStockException {
         String url = eposnowBaseUrl + String.format(pageStockQueryEndpoint, pageNumber);
         HttpHeaders headers = queryUtilise.getHeaders();
         HttpEntity entity = new HttpEntity(headers);
@@ -69,23 +47,24 @@ public class RestStockQueryClient implements StockQueryClient {
             }
             return Collections.emptyList();
         } catch (Exception e) {
-            throw new FailQueryProductException("Failed to query product stock for page " + pageNumber , e);
+            throw new FailQueryStockException("Failed to query product stock for page " + pageNumber , e);
         }
     }
 
     @Override
-    public Product getProductInfoByProductId(long productId) throws FailQueryProductException {
-        String url = eposnowBaseUrl + String.format(productQueryEndpoint, productId);
+    public ProductStock getStockByStockId(long stockId) throws FailQueryStockException {
+        String url = eposnowBaseUrl + String.format(pageStockQueryEndpoint, stockId);
         HttpHeaders headers = queryUtilise.getHeaders();
         HttpEntity entity = new HttpEntity(headers);
         try{
-            ResponseEntity<Product> product = restTemplate.exchange(url, HttpMethod.GET, entity, Product.class);
+            ResponseEntity<ProductStock> product = restTemplate.exchange(url, HttpMethod.GET, entity, ProductStock.class);
             if (product.hasBody()) {
                 return product.getBody();
             }
             return null;
         } catch (Exception e) {
-            throw new FailQueryProductException("Failed to query product for product id " + productId , e);
+            throw new FailQueryStockException("Failed to query product for product id " + stockId , e);
         }
     }
+
 }

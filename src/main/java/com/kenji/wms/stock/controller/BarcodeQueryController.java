@@ -1,7 +1,7 @@
 package com.kenji.wms.stock.controller;
 
 import com.kenji.wms.model.domainobject.ProductStock;
-import com.kenji.wms.stock.service.RestProductQueryService;
+import com.kenji.wms.stock.service.RestStockQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +12,15 @@ import java.util.List;
 
 @RestController
 public class BarcodeQueryController {
-    private final RestProductQueryService restProductQueryService;
+    private final RestStockQueryService restStockQueryService;
 
     @Autowired
-    public BarcodeQueryController(RestProductQueryService restProductQueryService) {
-        this.restProductQueryService = restProductQueryService;
+    public BarcodeQueryController(RestStockQueryService restStockQueryService) {
+        this.restStockQueryService = restStockQueryService;
     }
 
     @GetMapping(path="/query/stock/{barcode}")
     public ResponseEntity<List<ProductStock>> getProductStockByBarcode(@PathVariable("barcode") String barcode) {
-        return ResponseEntity.ok(restProductQueryService.getStocksByBarcode(barcode));
+        return ResponseEntity.ok(restStockQueryService.getStocksByBarcode(barcode));
     }
 }
