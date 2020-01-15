@@ -14,8 +14,7 @@ CREATE TABLE productStock
 (
   stock_id           BIGINT PRIMARY KEY NOT NULL,
   product_id         BIGINT NOT NULL REFERENCES products(product_id),
-  barcode            BIGINT NOT NULL REFERENCES products(barcode),
-  stock_json         JSON NOT NULL,
+  stock_json         JSON NOT NULL
 );
 
 DROP TABLE IF EXISTS auth_user_role;
