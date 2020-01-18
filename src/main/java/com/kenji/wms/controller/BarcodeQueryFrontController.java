@@ -5,6 +5,7 @@ import com.kenji.wms.model.domainobject.ProductStock;
 import com.kenji.wms.model.frontend.SearchedProduct;
 import com.kenji.wms.stock.exceptions.FailQueryProductException;
 import com.kenji.wms.stock.service.RestProductQueryService;
+import com.kenji.wms.stock.service.RestStockQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +15,12 @@ import java.util.List;
 
 @Controller
 public class BarcodeQueryFrontController {
+    private final RestStockQueryService restStockQueryService;
     private final RestProductQueryService restProductQueryService;
-
     @Autowired
-    public BarcodeQueryFrontController(RestProductQueryService restProductQueryService) {
-        this.restProductQueryService = restProductQueryService;
+    public BarcodeQueryFrontController(RestStockQueryService restProductQueryService, RestStockQueryService restStockQueryService, RestProductQueryService restProductQueryService1) {
+        this.restStockQueryService = restStockQueryService;
+        this.restProductQueryService = restProductQueryService1;
     }
 
 
@@ -32,8 +34,9 @@ public class BarcodeQueryFrontController {
         }
         try {
 
-        List<ProductStock> stocksByBarcode = restProductQueryService.getStocksByBarcode(search_input);
+        List<ProductStock> stocksByBarcode = restStockQueryService.getStocksByBarcode(search_input);
         Product productByBarcode = restProductQueryService.getProductByBarcode(search_input);
+        System.out.println(stocksByBarcode);
         int stockInWareHouse=0;
         int stockInArndale=0;
         int stockInBury=0;
@@ -56,8 +59,8 @@ public class BarcodeQueryFrontController {
         }
 
         SearchedProduct searchedProduct = new SearchedProduct();
-        searchedProduct.setProductID(productByBarcode.getProductID());
-        searchedProduct.setName(productByBarcode.getName());
+        searchedProduct.setProductID(searchedProduct.getProductID());
+        searchedProduct.setName(searchedProduct.getName());
         searchedProduct.setQtyInArndale(stockInArndale);
         searchedProduct.setQtyInWarehouse(stockInWareHouse);
         searchedProduct.setQtyInWarrinton(stockInWarrinton);
@@ -65,8 +68,8 @@ public class BarcodeQueryFrontController {
         searchedProduct.setQtyInBury(stockInBury);
         searchedProduct.setBarcode(search_input);
 
-        model.addAttribute("productId", searchedProduct.getProductID());
-        model.addAttribute("productName",searchedProduct.getName());
+        model.addAttribute("productId", productByBarcode.getProductID());
+        model.addAttribute("productName",productByBarcode.getName());
         model.addAttribute("stockId",searchedProduct.getStockID());
         model.addAttribute("qtyInStock",searchedProduct.getQtyInWarehouse());
         model.addAttribute("qtyInArndale",searchedProduct.getQtyInArndale());

@@ -8,6 +8,7 @@ import com.kenji.wms.stock.exceptions.FailQueryProductException;
 import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.repository.ProductRepository;
 import com.kenji.wms.stock.repository.StockRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,12 @@ public class RestSynchronizeService implements SynchronizeService {
     private final StockRepository stockRepository;
     private final ProductRepository productRepository;
 
+    @Autowired
     public RestSynchronizeService(
             StockQueryClient stockQueryClient,
             ProductQueryClient productQueryClient,
-            @Value("eposnow.stock.page.query.size")Integer stockPageSize,
-            @Value("eposnow.product.page.query.size")Integer productPageSize,
+            @Value("${eposnow.stock.page.query.size}")Integer stockPageSize,
+            @Value("${eposnow.product.page.query.size}")Integer productPageSize,
             StockRepository stockRepository,
             ProductRepository productRepository) {
         this.stockQueryClient = stockQueryClient;
