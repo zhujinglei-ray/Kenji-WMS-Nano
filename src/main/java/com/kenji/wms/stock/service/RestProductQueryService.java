@@ -1,22 +1,21 @@
 package com.kenji.wms.stock.service;
 
 import com.kenji.wms.model.domainobject.Product;
-import com.kenji.wms.model.domainobject.ProductStock;
-import com.kenji.wms.stock.clients.StockQueryClient;
+import com.kenji.wms.stock.clients.ProductQueryClient;
 import com.kenji.wms.stock.exceptions.FailQueryProductException;
-import com.kenji.wms.stock.repository.StockRepository;
+import com.kenji.wms.stock.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class RestProductQueryService implements ProductQueryService {
-    private final StockRepository repository;
-    private final StockQueryClient queryClient;
+    private final ProductRepository repository;
+    private final ProductQueryClient queryClient;
 
     @Autowired
-    public RestProductQueryService(StockRepository repository, StockQueryClient queryClient) {
+    public RestProductQueryService(
+            ProductRepository repository,
+            ProductQueryClient queryClient) {
         this.repository = repository;
         this.queryClient = queryClient;
     }
@@ -26,11 +25,5 @@ public class RestProductQueryService implements ProductQueryService {
         long productId = repository.getProductIdByBarcode(barcode);
         Product product = queryClient.getProductInfoByProductId(productId);
         return product;
-    }
-
-    public List<ProductStock> getStocksByBarcode(String barcode) {
-        long productId = repository.getProductIdByBarcode(barcode);
-        List<ProductStock> stocksByProductId = repository.getStocksByProductId(productId);
-        return stocksByProductId;
     }
 }
