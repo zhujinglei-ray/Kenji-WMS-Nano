@@ -1,17 +1,29 @@
 package com.kenji.wms.model.domainobject;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class ProductStock {
+    @JsonProperty("StockID")
     private long stockID;
+    @JsonProperty("LocationID")
     private long locationID;
+    @JsonProperty("ProductID")
     private long productID;
+    @JsonProperty("CurrentStock")
     private int currentStock;
+    @JsonProperty("MinStock")
     private int minStock;
+    @JsonProperty("MaxStock")
     private int maxStock;
+    @JsonProperty("CurrentVolume")
     private int currentVolume;
+    @JsonProperty("OnOrder")
     private int onOrder;
+    @JsonProperty("Alerts")
     private boolean alert;
+    @JsonProperty("CostPrice")
     private float costPrice;
 
     public ProductStock(long stockID, long locationID, long productID, int currentStock, int minStock, int maxStock, int currentVolume, int onOrder, boolean alert, float costPrice) {

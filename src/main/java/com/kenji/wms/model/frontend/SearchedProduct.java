@@ -10,9 +10,10 @@ public class SearchedProduct {
     private int qtyInArndale;
     private int qtyInPreston;
     private int qtyInBury;
-    private long barcode;
+    private int qtyInWarrinton;
+    private String barcode;
 
-    public SearchedProduct(long productID, String name, long stockID, int qtyInWarehouse, int qtyInArndale, int qtyInPreston, int qtyInBury, long barcode) {
+    public SearchedProduct(long productID, String name, long stockID, int qtyInWarehouse, int qtyInArndale, int qtyInPreston, int qtyInBury, int qtyInWarrinton, String barcode) {
         this.productID = productID;
         this.name = name;
         this.stockID = stockID;
@@ -20,6 +21,7 @@ public class SearchedProduct {
         this.qtyInArndale = qtyInArndale;
         this.qtyInPreston = qtyInPreston;
         this.qtyInBury = qtyInBury;
+        this.qtyInWarrinton = qtyInWarrinton;
         this.barcode = barcode;
     }
 
@@ -82,12 +84,20 @@ public class SearchedProduct {
         this.qtyInBury = qtyInBury;
     }
 
-    public long getBarcode() {
+    public String getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(long barcode) {
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+
+    public int getQtyInWarrinton() {
+        return qtyInWarrinton;
+    }
+
+    public void setQtyInWarrinton(int qtyInWarrinton) {
+        this.qtyInWarrinton = qtyInWarrinton;
     }
 
     @Override
@@ -101,13 +111,14 @@ public class SearchedProduct {
                 qtyInArndale == that.qtyInArndale &&
                 qtyInPreston == that.qtyInPreston &&
                 qtyInBury == that.qtyInBury &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(barcode, that.barcode);
+                qtyInWarrinton == that.qtyInWarrinton &&
+                barcode == that.barcode &&
+                Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productID, name, stockID, qtyInWarehouse, qtyInArndale, qtyInPreston, qtyInBury, barcode);
+        return Objects.hash(productID, name, stockID, qtyInWarehouse, qtyInArndale, qtyInPreston, qtyInBury, qtyInWarrinton, barcode);
     }
 
     @Override
@@ -120,7 +131,8 @@ public class SearchedProduct {
                 ", qtyInArndale=" + qtyInArndale +
                 ", qtyInPreston=" + qtyInPreston +
                 ", qtyInBury=" + qtyInBury +
-                ", barcode='" + barcode + '\'' +
+                ", qtyInWarrinton=" + qtyInWarrinton +
+                ", barcode=" + barcode +
                 '}';
     }
 }
