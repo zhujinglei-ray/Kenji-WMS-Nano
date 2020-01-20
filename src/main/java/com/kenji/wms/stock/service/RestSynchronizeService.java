@@ -28,8 +28,8 @@ public class RestSynchronizeService implements SynchronizeService {
     public RestSynchronizeService(
             StockQueryClient stockQueryClient,
             ProductQueryClient productQueryClient,
-            @Value("eposnow.stock.page.query.size")Integer stockPageSize,
-            @Value("eposnow.product.page.query.size")Integer productPageSize,
+            @Value("${eposnow.stock.page.query.size}") Integer stockPageSize,
+            @Value("${eposnow.product.page.query.size}")Integer productPageSize,
             StockRepository stockRepository,
             ProductRepository productRepository) {
         this.stockQueryClient = stockQueryClient;

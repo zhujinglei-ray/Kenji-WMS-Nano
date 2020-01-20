@@ -50,4 +50,4 @@ insert into auth_user (auth_user_id,first_name,last_name,email,password,status) 
 insert into auth_user_role (auth_user_id, auth_role_id) values ('1','1');
 insert into auth_user_role (auth_user_id, auth_role_id) values ('1','2');
 insert into auth_user_role (auth_user_id, auth_role_id) values ('1','3');
-select u.email, r.role_name from auth_user u inner join auth_user_role ur on(u.auth_user_id=ur.auth_user_id) inner join auth_role r on(ur.auth_role_id=r.auth_role_id)
+select u.email, r.role_name from auth_user u inner join auth_user_role ur on(u.auth_user_id=ur.auth_user_id) inner join auth_role r on(ur.auth_role_id=r.auth_role_id);
