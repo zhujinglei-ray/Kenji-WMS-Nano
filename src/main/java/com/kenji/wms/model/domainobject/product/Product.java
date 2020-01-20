@@ -53,7 +53,7 @@ public class Product {
     @JsonProperty("Sku")
     private String sku;
     @JsonProperty("SellOnWeb")
-    private long sellOnWeb;
+    private boolean sellOnWeb;
     @JsonProperty("SellOnTill")
     private boolean sellOnTill;
     @JsonProperty("OrderCode")
@@ -95,7 +95,7 @@ public class Product {
     @JsonProperty("CostPriceTaxGroup")
     private CostPriceTaxGroup costPriceTaxGroup;
 
-    public Product(long id, String name, String description, float costPrice, boolean costPriceIncTax, float salePrice, boolean salePriceIncTax, float eatOutPrice, boolean eatOutPriceIncTax, long categoryID, String barcode, String salePriceTaxGroupId, String eatOutPriceTaxGroupId, String costPriceTaxGroupId, long brandID, long supplierID, long popupNoteID, int unitOfSale, int volumeOfSale, long variantGroupID, long multipleChoiceNoteId, String size, String sku, long sellOnWeb, boolean sellOnTill, long orderCode, String sortPosition, float rrPrice, long productType, float tareWeight, String articleCode, boolean taxExemptable, String referenceCode, boolean variablePrice, boolean archived, Long colourId, String measurementDetails, Supplier supplier, List<String> productTags, List<String> productUdfs, List<String> productLocationAreaPrices, SalePriceTaxGroup salePriceTaxGroup, EatOutPriceTaxGroup eatOutPriceTaxGroup, CostPriceTaxGroup costPriceTaxGroup) {
+    public Product(long id, String name, String description, float costPrice, boolean costPriceIncTax, float salePrice, boolean salePriceIncTax, float eatOutPrice, boolean eatOutPriceIncTax, long categoryID, String barcode, String salePriceTaxGroupId, String eatOutPriceTaxGroupId, String costPriceTaxGroupId, long brandID, long supplierID, long popupNoteID, int unitOfSale, int volumeOfSale, long variantGroupID, long multipleChoiceNoteId, String size, String sku, boolean sellOnWeb, boolean sellOnTill, long orderCode, String sortPosition, float rrPrice, long productType, float tareWeight, String articleCode, boolean taxExemptable, String referenceCode, boolean variablePrice, boolean archived, Long colourId, String measurementDetails, Supplier supplier, List<String> productTags, List<String> productUdfs, List<String> productLocationAreaPrices, SalePriceTaxGroup salePriceTaxGroup, EatOutPriceTaxGroup eatOutPriceTaxGroup, CostPriceTaxGroup costPriceTaxGroup) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -329,11 +329,11 @@ public class Product {
         this.sku = sku;
     }
 
-    public long getSellOnWeb() {
+    public boolean isSellOnWeb() {
         return sellOnWeb;
     }
 
-    public void setSellOnWeb(long sellOnWeb) {
+    public void setSellOnWeb(boolean sellOnWeb) {
         this.sellOnWeb = sellOnWeb;
     }
 
