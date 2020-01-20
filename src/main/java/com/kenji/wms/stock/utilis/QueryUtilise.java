@@ -16,7 +16,7 @@ public class QueryUtilise {
 
     public HttpHeaders getHeaders(){
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer "+ token);
+        headers.add("Authorization", "Basic "+ token);
         return headers;
     }
 }
