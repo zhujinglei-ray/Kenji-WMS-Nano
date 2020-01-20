@@ -88,9 +88,15 @@ public class Product {
     private List<String> productUdfs;
     @JsonProperty("ProductLocationAreaPrices")
     private List<String> productLocationAreaPrices;
+    @JsonProperty("SalePriceTaxGroup")
+    private SalePriceTaxGroup salePriceTaxGroup;
+    @JsonProperty("EatOutPriceTaxGroup")
+    private EatOutPriceTaxGroup eatOutPriceTaxGroup;
+    @JsonProperty("CostPriceTaxGroup")
+    private CostPriceTaxGroup costPriceTaxGroup;
 
-    public Product(long ID, String name, String description, float costPrice, boolean costPriceIncTax, float salePrice, boolean salePriceIncTax, float eatOutPrice, boolean eatOutPriceIncTax, long categoryID, String barcode, String salePriceTaxGroupId, String eatOutPriceTaxGroupId, String costPriceTaxGroupId, long brandID, long supplierID, long popupNoteID, int unitOfSale, int volumeOfSale, long variantGroupID, long multipleChoiceNoteId, String size, String sku, long sellOnWeb, boolean sellOnTill, long orderCode, String sortPosition, float rrPrice, long productType, float tareWeight, String articleCode, boolean taxExemptable, String referenceCode, boolean variablePrice, boolean archived, Long colourId, String measurementDetails, Supplier supplier, List<String> productTags, List<String> productUdfs, List<String> productLocationAreaPrices) {
-        this.id = ID;
+    public Product(long id, String name, String description, float costPrice, boolean costPriceIncTax, float salePrice, boolean salePriceIncTax, float eatOutPrice, boolean eatOutPriceIncTax, long categoryID, String barcode, String salePriceTaxGroupId, String eatOutPriceTaxGroupId, String costPriceTaxGroupId, long brandID, long supplierID, long popupNoteID, int unitOfSale, int volumeOfSale, long variantGroupID, long multipleChoiceNoteId, String size, String sku, long sellOnWeb, boolean sellOnTill, long orderCode, String sortPosition, float rrPrice, long productType, float tareWeight, String articleCode, boolean taxExemptable, String referenceCode, boolean variablePrice, boolean archived, Long colourId, String measurementDetails, Supplier supplier, List<String> productTags, List<String> productUdfs, List<String> productLocationAreaPrices, SalePriceTaxGroup salePriceTaxGroup, EatOutPriceTaxGroup eatOutPriceTaxGroup, CostPriceTaxGroup costPriceTaxGroup) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.costPrice = costPrice;
@@ -131,14 +137,20 @@ public class Product {
         this.productTags = productTags;
         this.productUdfs = productUdfs;
         this.productLocationAreaPrices = productLocationAreaPrices;
+        this.salePriceTaxGroup = salePriceTaxGroup;
+        this.eatOutPriceTaxGroup = eatOutPriceTaxGroup;
+        this.costPriceTaxGroup = costPriceTaxGroup;
+    }
+
+    public Product() {
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long ID) {
-        this.id = ID;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -461,6 +473,30 @@ public class Product {
         this.productLocationAreaPrices = productLocationAreaPrices;
     }
 
+    public SalePriceTaxGroup getSalePriceTaxGroup() {
+        return salePriceTaxGroup;
+    }
+
+    public void setSalePriceTaxGroup(SalePriceTaxGroup salePriceTaxGroup) {
+        this.salePriceTaxGroup = salePriceTaxGroup;
+    }
+
+    public EatOutPriceTaxGroup getEatOutPriceTaxGroup() {
+        return eatOutPriceTaxGroup;
+    }
+
+    public void setEatOutPriceTaxGroup(EatOutPriceTaxGroup eatOutPriceTaxGroup) {
+        this.eatOutPriceTaxGroup = eatOutPriceTaxGroup;
+    }
+
+    public CostPriceTaxGroup getCostPriceTaxGroup() {
+        return costPriceTaxGroup;
+    }
+
+    public void setCostPriceTaxGroup(CostPriceTaxGroup costPriceTaxGroup) {
+        this.costPriceTaxGroup = costPriceTaxGroup;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -506,18 +542,21 @@ public class Product {
                 Objects.equals(supplier, product.supplier) &&
                 Objects.equals(productTags, product.productTags) &&
                 Objects.equals(productUdfs, product.productUdfs) &&
-                Objects.equals(productLocationAreaPrices, product.productLocationAreaPrices);
+                Objects.equals(productLocationAreaPrices, product.productLocationAreaPrices) &&
+                Objects.equals(salePriceTaxGroup, product.salePriceTaxGroup) &&
+                Objects.equals(eatOutPriceTaxGroup, product.eatOutPriceTaxGroup) &&
+                Objects.equals(costPriceTaxGroup, product.costPriceTaxGroup);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, costPrice, costPriceIncTax, salePrice, salePriceIncTax, eatOutPrice, eatOutPriceIncTax, categoryID, barcode, salePriceTaxGroupId, eatOutPriceTaxGroupId, costPriceTaxGroupId, brandID, supplierID, popupNoteID, unitOfSale, volumeOfSale, variantGroupID, multipleChoiceNoteId, size, sku, sellOnWeb, sellOnTill, orderCode, sortPosition, rrPrice, productType, tareWeight, articleCode, taxExemptable, referenceCode, variablePrice, archived, colourId, measurementDetails, supplier, productTags, productUdfs, productLocationAreaPrices);
+        return Objects.hash(id, name, description, costPrice, costPriceIncTax, salePrice, salePriceIncTax, eatOutPrice, eatOutPriceIncTax, categoryID, barcode, salePriceTaxGroupId, eatOutPriceTaxGroupId, costPriceTaxGroupId, brandID, supplierID, popupNoteID, unitOfSale, volumeOfSale, variantGroupID, multipleChoiceNoteId, size, sku, sellOnWeb, sellOnTill, orderCode, sortPosition, rrPrice, productType, tareWeight, articleCode, taxExemptable, referenceCode, variablePrice, archived, colourId, measurementDetails, supplier, productTags, productUdfs, productLocationAreaPrices, salePriceTaxGroup, eatOutPriceTaxGroup, costPriceTaxGroup);
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "ID=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", costPrice=" + costPrice +
@@ -558,6 +597,9 @@ public class Product {
                 ", productTags=" + productTags +
                 ", productUdfs=" + productUdfs +
                 ", productLocationAreaPrices=" + productLocationAreaPrices +
+                ", salePriceTaxGroup=" + salePriceTaxGroup +
+                ", eatOutPriceTaxGroup=" + eatOutPriceTaxGroup +
+                ", costPriceTaxGroup=" + costPriceTaxGroup +
                 '}';
     }
 }

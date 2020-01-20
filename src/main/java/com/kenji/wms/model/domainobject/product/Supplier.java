@@ -45,6 +45,9 @@ public class Supplier {
         this.referenceCode = referenceCode;
     }
 
+    public Supplier() {
+    }
+
     public long getId() {
         return id;
     }

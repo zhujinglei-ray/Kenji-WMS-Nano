@@ -33,6 +33,9 @@ public class TaxRate {
         this.taxCode = taxCode;
     }
 
+    public TaxRate() {
+    }
+
     public long getTaxGroupId() {
         return taxGroupId;
     }
