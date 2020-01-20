@@ -43,7 +43,7 @@ public class RestSynchronizeService implements SynchronizeService {
     @Override
     public BigInteger syncAllProductWithEposnow() throws FailQueryProductException {
         List<Product> products = new LinkedList<>();
-        int pageCount = 0;
+        int pageCount = 1;
         while (true) {
             Collection<Product> batch = productQueryClient.getProductsByPageNumber(pageCount);
             products.addAll(batch);
@@ -56,7 +56,7 @@ public class RestSynchronizeService implements SynchronizeService {
     @Override
     public BigInteger syncAllProductStockWithEposnow() throws FailQueryStockException {
         List<ProductStock> products = new LinkedList<>();
-        int pageCount = 0;
+        int pageCount = 1;
         while (true) {
             Collection<ProductStock> batch = stockQueryClient.getStocksByPageNumber(pageCount);
             products.addAll(batch);
