@@ -1,7 +1,7 @@
 package com.kenji.wms.stock.repository;
 
 import com.google.gson.Gson;
-import com.kenji.wms.model.domainobject.Product;
+import com.kenji.wms.model.domainobject.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -70,10 +70,10 @@ public class PostgresProductRepository implements ProductRepository {
         public void setValues(PreparedStatement ps, int i) throws SQLException {
             String productJson = gson.toJson(products.get(i)).toString();
             int j = 1;
-            ps.setLong(j++, products.get(i).getProductID());
+            ps.setLong(j++, products.get(i).getId());
             ps.setLong(j++, getProductBarcodeAsLong(products.get(i)));
             ps.setString(j++, productJson);
-            ps.setLong(j++, products.get(i).getProductID());
+            ps.setLong(j++, products.get(i).getId());
             ps.setLong(j++, getProductBarcodeAsLong(products.get(i)));
             ps.setString(j, productJson);
         }

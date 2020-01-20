@@ -1,6 +1,6 @@
 package com.kenji.wms.stock.service;
 
-import com.kenji.wms.model.domainobject.Product;
+import com.kenji.wms.model.domainobject.product.Product;
 import com.kenji.wms.model.domainobject.ProductStock;
 import com.kenji.wms.stock.clients.ProductQueryClient;
 import com.kenji.wms.stock.clients.StockQueryClient;
