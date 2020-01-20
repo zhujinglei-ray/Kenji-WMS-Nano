@@ -2,44 +2,48 @@ package com.kenji.wms.model.domainobject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class ProductStock {
-    @JsonProperty("StockID")
+    @JsonProperty("Id")
     private long stockID;
     @JsonProperty("LocationID")
     private long locationID;
     @JsonProperty("ProductID")
     private long productID;
-    @JsonProperty("CurrentStock")
-    private int currentStock;
     @JsonProperty("MinStock")
     private int minStock;
     @JsonProperty("MaxStock")
     private int maxStock;
-    @JsonProperty("CurrentVolume")
-    private int currentVolume;
-    @JsonProperty("OnOrder")
-    private int onOrder;
-    @JsonProperty("Alerts")
-    private boolean alert;
-    @JsonProperty("CostPrice")
-    private float costPrice;
+    @JsonProperty("MinimumOrderAmount")
+    private int minimumOrderAmount;
+    @JsonProperty("MultipleOrderAmount")
+    private int multipleOrderAmount;
+    @JsonProperty("ProductStockBatches")
+    private List<ProductStockBatches> productStockBatches = new LinkedList<>();
 
-    public ProductStock(long stockID, long locationID, long productID, int currentStock, int minStock, int maxStock, int currentVolume, int onOrder, boolean alert, float costPrice) {
+    public ProductStock(long stockID, long locationID, long productID, int minStock, int maxStock, int minimumOrderAmount, int multipleOrderAmount,List<ProductStockBatches> productStockBatches) {
         this.stockID = stockID;
         this.locationID = locationID;
         this.productID = productID;
-        this.currentStock = currentStock;
         this.minStock = minStock;
         this.maxStock = maxStock;
-        this.currentVolume = currentVolume;
-        this.onOrder = onOrder;
-        this.alert = alert;
-        this.costPrice = costPrice;
+        this.minimumOrderAmount = minimumOrderAmount;
+        this.multipleOrderAmount = multipleOrderAmount;
+        this.productStockBatches=productStockBatches;
     }
 
     public ProductStock() {
+    }
+
+    public List<ProductStockBatches> getProductStockBatches() {
+        return productStockBatches;
+    }
+
+    public void setProductStockBatches(List<ProductStockBatches> productStockBatches) {
+        this.productStockBatches = productStockBatches;
     }
 
     public long getStockID() {
@@ -66,14 +70,6 @@ public class ProductStock {
         this.productID = productID;
     }
 
-    public int getCurrentStock() {
-        return currentStock;
-    }
-
-    public void setCurrentStock(int currentStock) {
-        this.currentStock = currentStock;
-    }
-
     public int getMinStock() {
         return minStock;
     }
@@ -90,38 +86,21 @@ public class ProductStock {
         this.maxStock = maxStock;
     }
 
-    public int getCurrentVolume() {
-        return currentVolume;
+    public int getMinimumOrderAmount() {
+        return minimumOrderAmount;
     }
 
-    public void setCurrentVolume(int currentVolume) {
-        this.currentVolume = currentVolume;
+    public void setMinimumOrderAmount(int minimumOrderAmount) {
+        this.minimumOrderAmount = minimumOrderAmount;
     }
 
-    public int getOnOrder() {
-        return onOrder;
+    public int getMultipleOrderAmount() {
+        return multipleOrderAmount;
     }
 
-    public void setOnOrder(int onOrder) {
-        this.onOrder = onOrder;
+    public void setMultipleOrderAmount(int multipleOrderAmount) {
+        this.multipleOrderAmount = multipleOrderAmount;
     }
-
-    public boolean isAlert() {
-        return alert;
-    }
-
-    public void setAlert(boolean alert) {
-        this.alert = alert;
-    }
-
-    public float getCostPrice() {
-        return costPrice;
-    }
-
-    public void setCostPrice(float costPrice) {
-        this.costPrice = costPrice;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -130,18 +109,16 @@ public class ProductStock {
         return stockID == that.stockID &&
                 locationID == that.locationID &&
                 productID == that.productID &&
-                currentStock == that.currentStock &&
                 minStock == that.minStock &&
                 maxStock == that.maxStock &&
-                currentVolume == that.currentVolume &&
-                onOrder == that.onOrder &&
-                alert == that.alert &&
-                Float.compare(that.costPrice, costPrice) == 0;
+                minimumOrderAmount == that.minimumOrderAmount &&
+                multipleOrderAmount == that.multipleOrderAmount &&
+                Objects.equals(productStockBatches, that.productStockBatches);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stockID, locationID, productID, currentStock, minStock, maxStock, currentVolume, onOrder, alert, costPrice);
+        return Objects.hash(stockID, locationID, productID, minStock, maxStock, minimumOrderAmount, multipleOrderAmount, productStockBatches);
     }
 
     @Override
@@ -150,13 +127,11 @@ public class ProductStock {
                 "stockID=" + stockID +
                 ", locationID=" + locationID +
                 ", productID=" + productID +
-                ", currentStock=" + currentStock +
                 ", minStock=" + minStock +
                 ", maxStock=" + maxStock +
-                ", currentVolume=" + currentVolume +
-                ", onOrder=" + onOrder +
-                ", alert=" + alert +
-                ", costPrice=" + costPrice +
+                ", minimumOrderAmount=" + minimumOrderAmount +
+                ", MultipleOrderAmount=" + multipleOrderAmount +
+                ", productStockBatches=" + productStockBatches +
                 '}';
     }
 }
