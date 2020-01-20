@@ -26,10 +26,15 @@ public class PostgresProductRepository implements ProductRepository {
 
     @Override
     public void updateBatchProducts(List<Product> products) {
+        System.out.printf("The origin product");
+        System.out.println(products.get(0));
+        Gson gson = new Gson();
         products = refineProductList(products);
         String sql = "INSERT INTO products(product_id, barcode, product_json) VALUES(?, ?, ?::json) " +
                 "ON CONFLICT(product_id, barcode) DO update set product_id=?, barcode=?, product_json=?::json;";
         jdbcTemplate.batchUpdate(sql, new batchProductUpdateSetter(products));
+        System.out.printf("The json format");
+        System.out.println(gson.toJson(products.get(0)));
     }
 
     @Override

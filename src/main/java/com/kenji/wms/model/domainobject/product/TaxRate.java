@@ -1,5 +1,6 @@
 package com.kenji.wms.model.domainobject.product;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
@@ -21,7 +22,6 @@ public class TaxRate {
     private String description;
     @JsonProperty("TaxCode")
     private String taxCode;
-
     public TaxRate(long taxGroupId, long taxRateId, long locationId, long priority, double percentage, String name, String description, String taxCode) {
         this.taxGroupId = taxGroupId;
         this.taxRateId = taxRateId;

@@ -1,5 +1,6 @@
 package com.kenji.wms.model.domainobject.product;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
@@ -29,7 +30,6 @@ public class Supplier {
     private String type;
     @JsonProperty("ReferenceCode")
     private String referenceCode;
-
     public Supplier(long id, String name, String description, String addressLine1, String addressLine2, String town, String county, String contactNumber, String contactNumber2, String emailAddress, String type, String referenceCode) {
         this.id = id;
         this.name = name;

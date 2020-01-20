@@ -1,5 +1,6 @@
 package com.kenji.wms.model.domainobject.product;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -12,7 +13,6 @@ public class SalePriceTaxGroup {
     private String name;
     @JsonProperty("TaxRates")
     private List<TaxRate> taxRates;
-
     public SalePriceTaxGroup(long id, String name, List<TaxRate> taxRates) {
         this.id = id;
         this.name = name;

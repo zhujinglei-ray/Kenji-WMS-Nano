@@ -1,5 +1,6 @@
 package com.kenji.wms.model.domainobject.product;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -94,7 +95,6 @@ public class Product {
     private EatOutPriceTaxGroup eatOutPriceTaxGroup;
     @JsonProperty("CostPriceTaxGroup")
     private CostPriceTaxGroup costPriceTaxGroup;
-
     public Product(long id, String name, String description, float costPrice, boolean costPriceIncTax, float salePrice, boolean salePriceIncTax, float eatOutPrice, boolean eatOutPriceIncTax, long categoryID, String barcode, String salePriceTaxGroupId, String eatOutPriceTaxGroupId, String costPriceTaxGroupId, long brandID, long supplierID, long popupNoteID, int unitOfSale, int volumeOfSale, long variantGroupID, long multipleChoiceNoteId, String size, String sku, boolean sellOnWeb, boolean sellOnTill, long orderCode, String sortPosition, float rrPrice, long productType, float tareWeight, String articleCode, boolean taxExemptable, String referenceCode, boolean variablePrice, boolean archived, Long colourId, String measurementDetails, Supplier supplier, List<String> productTags, List<String> productUdfs, List<String> productLocationAreaPrices, SalePriceTaxGroup salePriceTaxGroup, EatOutPriceTaxGroup eatOutPriceTaxGroup, CostPriceTaxGroup costPriceTaxGroup) {
         this.id = id;
         this.name = name;
