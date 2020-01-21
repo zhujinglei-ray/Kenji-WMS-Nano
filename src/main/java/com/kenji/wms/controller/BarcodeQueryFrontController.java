@@ -43,20 +43,20 @@ public class BarcodeQueryFrontController {
         int stockInPreston=0;
         int stockInWarrinton=0;
 
-//        for (ProductStock productStock : stocksByBarcode) {
-//            if (productStock.getLocationID() == 3371){
-//                stockInWareHouse = productStock.getCurrentStock();
-//            }
-//            if (productStock.getLocationID() == 13908){
-//                stockInPreston = productStock.getCurrentStock();
-//            }
-//            if (productStock.getLocationID() == 13951){
-//                stockInBury = productStock.getCurrentStock();
-//            }
-//            if (productStock.getLocationID() == 17595){
-//                stockInArndale = productStock.getCurrentStock();
-//            }
-//        }
+        for (ProductStock productStock : stocksByBarcode) {
+            if (productStock.getLocationID() == 3371){
+                stockInWareHouse = productStock.getProductStockBatches().get(0).getCurrentStock();
+            }
+            if (productStock.getLocationID() == 13908){
+                stockInPreston =  productStock.getProductStockBatches().get(0).getCurrentStock();
+            }
+            if (productStock.getLocationID() == 13951){
+                stockInBury =  productStock.getProductStockBatches().get(0).getCurrentStock();
+            }
+            if (productStock.getLocationID() == 17595){
+                stockInArndale =  productStock.getProductStockBatches().get(0).getCurrentStock();
+            }
+        }
 
         SearchedProduct searchedProduct = new SearchedProduct();
         searchedProduct.setProductID(searchedProduct.getProductID());
