@@ -66,5 +66,4 @@ public class RestStockQueryClient implements StockQueryClient {
             throw new FailQueryStockException("Failed to query product for product id " + stockId , e);
         }
     }
-
 }
