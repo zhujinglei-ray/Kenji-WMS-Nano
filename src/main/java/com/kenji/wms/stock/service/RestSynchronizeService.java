@@ -1,6 +1,6 @@
 package com.kenji.wms.stock.service;
 
-import com.kenji.wms.model.domainobject.Product;
+import com.kenji.wms.model.domainobject.product.Product;
 import com.kenji.wms.model.domainobject.ProductStock;
 import com.kenji.wms.stock.clients.ProductQueryClient;
 import com.kenji.wms.stock.clients.StockQueryClient;
@@ -8,7 +8,6 @@ import com.kenji.wms.stock.exceptions.FailQueryProductException;
 import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.repository.ProductRepository;
 import com.kenji.wms.stock.repository.StockRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +25,10 @@ public class RestSynchronizeService implements SynchronizeService {
     private final StockRepository stockRepository;
     private final ProductRepository productRepository;
 
-    @Autowired
     public RestSynchronizeService(
             StockQueryClient stockQueryClient,
             ProductQueryClient productQueryClient,
-            @Value("${eposnow.stock.page.query.size}")Integer stockPageSize,
+            @Value("${eposnow.stock.page.query.size}") Integer stockPageSize,
             @Value("${eposnow.product.page.query.size}")Integer productPageSize,
             StockRepository stockRepository,
             ProductRepository productRepository) {
@@ -45,7 +43,7 @@ public class RestSynchronizeService implements SynchronizeService {
     @Override
     public BigInteger syncAllProductWithEposnow() throws FailQueryProductException {
         List<Product> products = new LinkedList<>();
-        int pageCount = 0;
+        int pageCount = 1;
         while (true) {
             Collection<Product> batch = productQueryClient.getProductsByPageNumber(pageCount);
             products.addAll(batch);
@@ -58,7 +56,7 @@ public class RestSynchronizeService implements SynchronizeService {
     @Override
     public BigInteger syncAllProductStockWithEposnow() throws FailQueryStockException {
         List<ProductStock> products = new LinkedList<>();
-        int pageCount = 0;
+        int pageCount = 1;
         while (true) {
             Collection<ProductStock> batch = stockQueryClient.getStocksByPageNumber(pageCount);
             products.addAll(batch);
