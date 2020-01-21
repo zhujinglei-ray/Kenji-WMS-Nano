@@ -9,9 +9,9 @@ import java.util.Objects;
 public class ProductStock {
     @JsonProperty("Id")
     private long stockID;
-    @JsonProperty("LocationID")
+    @JsonProperty("LocationId")
     private long locationID;
-    @JsonProperty("ProductID")
+    @JsonProperty("ProductId")
     private long productID;
     @JsonProperty("MinStock")
     private int minStock;
