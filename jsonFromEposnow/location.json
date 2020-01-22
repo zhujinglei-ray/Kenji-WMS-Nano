@@ -1,0 +1,74 @@
+[
+  {
+    "LocationID": 3371,
+    "LocationAreaID": null,
+    "Name": "Warehse",
+    "Description": "Warehse",
+    "Address1": "",
+    "Address2": "",
+    "Town": "Warehouse",
+    "County": "",
+    "PostCode": "WA1 1QE",
+    "EmailAddress": ""
+  },
+  {
+    "LocationID": 13908,
+    "LocationAreaID": null,
+    "Name": "KENJI (Preston)",
+    "Description": "KENJI (Preston)",
+    "Address1": "St Georges Shopping Centre",
+    "Address2": "",
+    "Town": "Preston",
+    "County": "",
+    "PostCode": "",
+    "EmailAddress": ""
+  },
+  {
+    "LocationID": 13951,
+    "LocationAreaID": null,
+    "Name": "Kenji (Bry)",
+    "Description": "Kenji (Bry)",
+    "Address1": "Millgate Shopping Centre",
+    "Address2": "",
+    "Town": "Bury",
+    "County": "",
+    "PostCode": "BL9 0QQ",
+    "EmailAddress": ""
+  },
+  {
+    "LocationID": 14969,
+    "LocationAreaID": null,
+    "Name": "KENJI (Warrington)\t",
+    "Description": "KENJI (Warrington)\t",
+    "Address1": "Golden Square Shopping Centre",
+    "Address2": "",
+    "Town": "Warrington",
+    "County": "",
+    "PostCode": "",
+    "EmailAddress": ""
+  },
+  {
+    "LocationID": 17595,
+    "LocationAreaID": null,
+    "Name": "KENJI (Manchester Arndale)",
+    "Description": "KENJI (Manchester Arndale)",
+    "Address1": "Arndale Shopping Centre",
+    "Address2": "",
+    "Town": "Manchester",
+    "County": "",
+    "PostCode": "",
+    "EmailAddress": ""
+  },
+  {
+    "LocationID": 19398,
+    "LocationAreaID": null,
+    "Name": "Shopify Reserved Stock",
+    "Description": "",
+    "Address1": "",
+    "Address2": "",
+    "Town": "Warrington",
+    "County": "",
+    "PostCode": "WA1 1QE",
+    "EmailAddress": "we-care@kenji.co.uk"
+  }
+]

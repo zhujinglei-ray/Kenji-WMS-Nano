@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Spring Boot Thymeleaf Hello World Example</title>
+
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Mkyong.com</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>Spring Boot Web Thymeleaf Example</h1>
+    </div>
+
+    <ol>
+<!--        <li th:each="task : ${tasks}" th:text="${task}"></li>-->
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Stock ID</th>
+            <th>Qty In Stock</th>
+            <th>Qty Arndale </th>
+            <th>Qty Bury </th>
+            <th>Qty Preston</th>
+            <th>Barcode </th>
+        </tr>
+        <tr>
+            <th><span th:text=" ${productId}"></span></th>
+            <th><span th:text=" ${productName}"></span></th>
+            <th><span th:text=" ${stockId}"></span></th>
+            <th><span th:text=" ${qtyInStock}"></span></th>
+            <th><span th:text=" ${qtyInArndale}"></span></th>
+            <th><span th:text=" ${qtyInBury}"></span></th>
+            <th><span th:text=" ${qtyInPreston}"></span></th>
+            <th><span th:text=" ${barcode}"></span> </th>
+        </tr>
+    </ol>
+
+</main>
+<!-- /.container -->
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>
+</html>
