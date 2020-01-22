@@ -47,6 +47,7 @@ public class RestSynchronizeService implements SynchronizeService {
         while (true) {
             Collection<Product> batch = productQueryClient.getProductsByPageNumber(pageCount);
             products.addAll(batch);
+            pageCount++;
             if (batch.size() < productPageSize) break;
         }
         productRepository.updateBatchProducts(products);
@@ -60,6 +61,7 @@ public class RestSynchronizeService implements SynchronizeService {
         while (true) {
             Collection<ProductStock> batch = stockQueryClient.getStocksByPageNumber(pageCount);
             products.addAll(batch);
+            pageCount++;
             if (batch.size() < stockPageSize) break;
         }
         stockRepository.updateBatchProductStocks(products);
