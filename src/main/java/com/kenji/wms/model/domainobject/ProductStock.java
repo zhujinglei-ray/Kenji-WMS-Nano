@@ -44,8 +44,8 @@ public class ProductStock {
 
     public int getCurrentStock(){
         int num = 0;
-        for(ProductStockBatches batches : productStockBatches){
-            num += batches.getCurrentStock();
+        for(ProductStockBatches batch : productStockBatches){
+            num += batch.getCurrentStock();
         }
         return num;
     }
