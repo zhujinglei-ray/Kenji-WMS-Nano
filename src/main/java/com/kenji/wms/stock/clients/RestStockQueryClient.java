@@ -17,6 +17,7 @@ public class RestStockQueryClient implements StockQueryClient {
     private String eposnowBaseUrl;
     private String stockQueryEndpoint;
     private String pageStockQueryEndpoint;
+    private String pageStockQueryProductEndpoint;
     private QueryUtilise queryUtilise;
 
     @Autowired
@@ -25,12 +26,13 @@ public class RestStockQueryClient implements StockQueryClient {
             QueryUtilise queryUtilise,
             @Value("${eposnow.base.url}") String eposnowBaseUrl,
             @Value("${eposnow.stock.endpoint}") String stockQueryEndpoint,
-            @Value("${eposnow.stock.page.query.endpoint}") String pageStockQueryEndpoint) {
+            @Value("${eposnow.stock.page.query.endpoint}") String pageStockQueryEndpoint,   @Value("${eposnow.stock.page.query.product.endpoint}")String pageStockQueryProductEndpoint) {
         this.restTemplate = restTemplate;
         this.eposnowBaseUrl = eposnowBaseUrl;
         this.queryUtilise = queryUtilise;
         this.stockQueryEndpoint = stockQueryEndpoint;
         this.pageStockQueryEndpoint = pageStockQueryEndpoint;
+        this.pageStockQueryProductEndpoint = pageStockQueryProductEndpoint;
     }
 
     @Override
@@ -62,6 +64,22 @@ public class RestStockQueryClient implements StockQueryClient {
             return null;
         } catch (Exception e) {
             throw new FailQueryStockException("Failed to query product for product id " + stockId , e);
+        }
+    }
+
+    @Override
+    public List<ProductStock> getStocksByProductId(long productId) throws FailQueryStockException {
+        String url = eposnowBaseUrl + String.format(pageStockQueryProductEndpoint)+productId;
+        HttpHeaders headers = queryUtilise.getHeaders();
+        HttpEntity entity = new HttpEntity(headers);
+        try{
+            ResponseEntity<ProductStock[]> products = restTemplate.exchange(url, HttpMethod.GET, entity, ProductStock[].class);
+            if (products.hasBody()) {
+                return Arrays.asList(Objects.requireNonNull(products.getBody()));
+            }
+            return Collections.emptyList();
+        } catch (Exception e) {
+            throw new FailQueryStockException("Failed to query product stock for product " + productId , e);
         }
     }
 }

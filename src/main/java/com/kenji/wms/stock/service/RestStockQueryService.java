@@ -8,6 +8,7 @@ import com.kenji.wms.stock.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,9 +32,9 @@ public class RestStockQueryService implements StockQueryService {
     public List<ProductStock> getStocksByBarcode(String barcode) {
         long productId = productRepository.getProductIdByBarcode(barcode);
         List<String> stockIdsForProduct = stockRepository.getStockIdsByProductId(productId);
-        return stockIdsForProduct.stream()
-                .map(this::getOneProductStockById)
-                .collect(Collectors.toList());
+        String productOnlyId = stockIdsForProduct.get(0);
+        return getOneProductsByProductId(productId);
+
     }
 
     private ProductStock getOneProductStockById(String stockId) {
@@ -43,5 +44,14 @@ public class RestStockQueryService implements StockQueryService {
             e.printStackTrace();
         }
         return new ProductStock();
+    }
+
+    private List<ProductStock> getOneProductsByProductId(long productId) {
+        try {
+            return stockQueryClient.getStocksByProductId(productId);
+        } catch (FailQueryStockException e) {
+            e.printStackTrace();
+        }
+        return new LinkedList<>();
     }
 }

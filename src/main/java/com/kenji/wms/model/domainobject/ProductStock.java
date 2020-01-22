@@ -42,6 +42,14 @@ public class ProductStock {
         return productStockBatches;
     }
 
+    public int getCurrentStock(){
+        int num = 0;
+        for(ProductStockBatches batches : productStockBatches){
+            num += batches.getCurrentStock();
+        }
+        return num;
+    }
+
     public void setProductStockBatches(List<ProductStockBatches> productStockBatches) {
         this.productStockBatches = productStockBatches;
     }

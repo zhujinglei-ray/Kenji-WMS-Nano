@@ -1,6 +1,7 @@
 package com.kenji.wms.queryservice;
 
 import com.kenji.wms.model.domainobject.ProductStock;
+import com.kenji.wms.model.domainobject.ProductStockBatches;
 import com.kenji.wms.model.domainobject.product.Product;
 import com.kenji.wms.model.frontend.SearchedProduct;
 import com.kenji.wms.model.frontend.WarehouseIdMap;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BarcodeQueryService {
@@ -36,21 +38,15 @@ public class BarcodeQueryService {
         searchedProduct.setQtyInArndale(retrieveQtyInLocation(stocksByBarcode,WarehouseIdMap.ARNDALE.getLocationId()));
         searchedProduct.setName(retrieveName(barcodeInput));
         searchedProduct.setBarcode(barcodeInput);
-
         return searchedProduct;
-
     }
 
 
     private int retrieveQtyInLocation(List<ProductStock> stocksByBarcode, int warehouseId) {
         try {
             return stocksByBarcode.stream().filter(productStock ->
-                    productStock.getLocationID() == warehouseId)
-                    .map(ProductStock::getProductStockBatches)
-                    .findAny()
-                    .get()
-                    .get(0)
-                    .getCurrentStock();
+                    productStock.getLocationID() == Long.valueOf(warehouseId))
+                    .map(ProductStock::getCurrentStock).findAny().get();
         } catch (NullPointerException e) {
             return 0;
         }
