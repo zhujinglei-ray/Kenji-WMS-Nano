@@ -7,12 +7,12 @@ public enum WarehouseIdMap {
     BURY (13951),
     ARNDALE (17595);
 
-    private final int locationId;
+    private final long locationId;
 
-    private WarehouseIdMap(int locationId) {
+    private WarehouseIdMap(long locationId) {
         this.locationId = locationId;
     }
-    public int getLocationId() {
+    public long getLocationId() {
         return locationId;
     }
 }

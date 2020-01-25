@@ -2,8 +2,10 @@ package com.kenji.wms.stock.service;
 
 import com.kenji.wms.model.domainobject.product.Product;
 import com.kenji.wms.model.domainobject.ProductStock;
+import com.kenji.wms.model.domainobject.stockmove.StockTransfer;
 import com.kenji.wms.stock.clients.ProductQueryClient;
 import com.kenji.wms.stock.clients.StockQueryClient;
+import com.kenji.wms.stock.clients.StockTransferClient;
 import com.kenji.wms.stock.exceptions.FailQueryProductException;
 import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.repository.ProductRepository;
@@ -19,6 +21,7 @@ import java.util.List;
 @Service
 public class RestSynchronizeService implements SynchronizeService {
     private final StockQueryClient stockQueryClient;
+    private final StockTransferClient stockTransferClient;
     private final ProductQueryClient productQueryClient;
     private final Integer stockPageSize;
     private final Integer productPageSize;
@@ -31,13 +34,15 @@ public class RestSynchronizeService implements SynchronizeService {
             @Value("${eposnow.stock.page.query.size}") Integer stockPageSize,
             @Value("${eposnow.product.page.query.size}")Integer productPageSize,
             StockRepository stockRepository,
-            ProductRepository productRepository) {
+            ProductRepository productRepository,
+            StockTransferClient stockTransferClient) {
         this.stockQueryClient = stockQueryClient;
         this.productQueryClient = productQueryClient;
         this.stockPageSize = stockPageSize;
         this.productPageSize = productPageSize;
         this.stockRepository = stockRepository;
         this.productRepository = productRepository;
+        this.stockTransferClient = stockTransferClient;
     }
 
     @Override
@@ -69,6 +74,20 @@ public class RestSynchronizeService implements SynchronizeService {
     }
 
     @Override
+    public BigInteger syncAllStockTransferWithEposnow() throws FailQueryStockException {
+        List<StockTransfer> transfers = new LinkedList<>();
+        int pageCount = 1;
+        while (true) {
+            Collection<StockTransfer> batch = stockTransferClient.getStockTransfersByPageNumber(pageCount);
+            transfers.addAll(batch);
+            pageCount++;
+            if (batch.size() < stockPageSize) break;
+        }
+        stock.updateBatchProductStocks(products);
+        return BigInteger.valueOf(products.size())
+    }
+
+    @Override
     public long syncProductsByPage(Integer pageNumber) throws FailQueryProductException {
         System.out.println("Get product list from client for page " + pageNumber);
         List<Product> batch = productQueryClient.getProductsByPageNumber(pageNumber);
@@ -84,5 +103,10 @@ public class RestSynchronizeService implements SynchronizeService {
         System.out.println("Get products with size " + batch.size());
         stockRepository.updateBatchProductStocks(batch);
         return batch.size();
+    }
+
+    @Override
+    public long syncStockTransferByPage(Integer pageNumber) throws FailQueryStockException {
+        return 0;
     }
 }
