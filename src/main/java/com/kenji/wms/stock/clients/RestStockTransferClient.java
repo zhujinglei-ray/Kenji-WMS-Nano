@@ -52,13 +52,13 @@ public class RestStockTransferClient implements StockTransferClient{
     @Override
     public StockTransfer createStockTransfer(StockTransfer transfer) {
         String url = eposnowBaseUrl + stockTransferEndpoint;
-        HttpHeaders headers = queryUtilise.getHeaders();
+        HttpHeaders headers = queryUtilise.getHeadersV2();
         HttpEntity entity = new HttpEntity(transfer, headers);
         ResponseEntity<StockTransfer> transfersNew;
         try {
             transfersNew = restTemplate.exchange(url, HttpMethod.POST, entity, StockTransfer.class);
         } catch (Exception e){
-            logger.debug("Failed to creat stock transfer on remote server");
+            logger.debug("Failed to creat stock transfer on remote server", e);
             return transfer;
         }
         return transfersNew.getBody();
@@ -67,13 +67,13 @@ public class RestStockTransferClient implements StockTransferClient{
     @Override
     public StockTransferItem createStockTransferItem(StockTransferItem item) {
         String url = eposnowBaseUrl +stockTransferItemEndpoint;
-        HttpHeaders headers = queryUtilise.getHeaders();
+        HttpHeaders headers = queryUtilise.getHeadersV2();
         HttpEntity entity = new HttpEntity(item, headers);
         ResponseEntity<StockTransferItem> itemNew;
         try {
             itemNew = restTemplate.exchange(url, HttpMethod.POST, entity, StockTransferItem.class);
         } catch (Exception e){
-            logger.debug("Failed to creat stock transfer on remote server");
+            logger.debug("Failed to creat stock transfer item on remote server", e);
             return item;
         }
         return itemNew.getBody();

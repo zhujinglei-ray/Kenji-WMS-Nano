@@ -2,6 +2,7 @@ package com.kenji.wms.stock.repository;
 
 import com.google.gson.Gson;
 import com.kenji.wms.model.domainobject.stockmove.StockTransfer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,11 +17,17 @@ public class PostgresStockTransferRepository implements  StockTransferRepository
     private JdbcTemplate jdbcTemplate;
     private Gson gson;
 
+    @Autowired
+    public PostgresStockTransferRepository(JdbcTemplate jdbcTemplate, Gson gson) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.gson = gson;
+    }
+
     @Override
     public void updateBatchStockTransfers(List<StockTransfer> transfers) {
         String sql = "INSERT INTO stockTransfer(stock_transfer_id, stock_transfer_number, stock_transfer_json) VALUES(?, ?, ?::json) " +
                 "ON CONFLICT(stock_transfer_id) DO update set stock_transfer_number=?, stock_transfer_json=?::json;";
-        jdbcTemplate.batchUpdate(sql, new batchProductStockUpdateSetter(transfers));
+        jdbcTemplate.batchUpdate(sql, new batchStockTransferUpdateSetter(transfers));
     }
 
     @Override
@@ -37,11 +44,11 @@ public class PostgresStockTransferRepository implements  StockTransferRepository
         return count;
     }
 
-    private class batchProductStockUpdateSetter implements BatchPreparedStatementSetter {
+    private class batchStockTransferUpdateSetter implements BatchPreparedStatementSetter {
 
         private List<StockTransfer> transfers;
 
-        public batchProductStockUpdateSetter(List<StockTransfer> stocks) {
+        public batchStockTransferUpdateSetter(List<StockTransfer> transfers) {
             this.transfers = transfers;
         }
 

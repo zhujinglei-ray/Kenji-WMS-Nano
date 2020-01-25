@@ -1,10 +1,12 @@
 package com.kenji.wms.model.domainobject.stockmove;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class StockTransferItem {
     @JsonProperty("StockTransferItemID")
     private Long stockTransferItemID;

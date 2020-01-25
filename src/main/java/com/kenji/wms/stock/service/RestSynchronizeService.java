@@ -11,6 +11,8 @@ import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.repository.ProductRepository;
 import com.kenji.wms.stock.repository.StockRepository;
 import com.kenji.wms.stock.repository.StockTransferRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class RestSynchronizeService implements SynchronizeService {
     private final StockRepository stockRepository;
     private final ProductRepository productRepository;
     private final StockTransferRepository  stockTransferRepository;
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     public RestSynchronizeService(
             StockQueryClient stockQueryClient,
             ProductQueryClient productQueryClient,
@@ -79,11 +81,13 @@ public class RestSynchronizeService implements SynchronizeService {
 
     @Override
     public BigInteger syncAllStockTransferWithEposnow() throws FailQueryStockException {
+        logger.debug("Start sync all stock transfer records");
         List<StockTransfer> transfers = new LinkedList<>();
         int pageCount = 1;
         while (true) {
             Collection<StockTransfer> batch = stockTransferClient.getStockTransfersByPageNumber(pageCount);
             transfers.addAll(batch);
+            logger.debug("Page {} of stocktransfer record has finished", pageCount);
             pageCount++;
             if (batch.size() < stockPageSize) break;
         }
@@ -93,27 +97,27 @@ public class RestSynchronizeService implements SynchronizeService {
 
     @Override
     public long syncProductsByPage(Integer pageNumber) throws FailQueryProductException {
-        System.out.println("Get product list from client for page " + pageNumber);
+        logger.debug("Get product list from client for page " + pageNumber);
         List<Product> batch = productQueryClient.getProductsByPageNumber(pageNumber);
-        System.out.println("Get products with size " + batch.size());
+        logger.debug("Get products with size " + batch.size());
         productRepository.updateBatchProducts(batch);
         return batch.size();
     }
 
     @Override
     public long syncStocksByPage(Integer pageNumber) throws FailQueryStockException {
-        System.out.println("Get stock list from client for page " + pageNumber);
+        logger.debug("Get stock list from client for page " + pageNumber);
         List<ProductStock> batch = stockQueryClient.getStocksByPageNumber(pageNumber);
-        System.out.println("Get products with size " + batch.size());
+        logger.debug("Get products with size " + batch.size());
         stockRepository.updateBatchProductStocks(batch);
         return batch.size();
     }
 
     @Override
     public long syncStockTransferByPage(Integer pageNumber) throws FailQueryStockException {
-        System.out.println("Get stock transfer list from client for page " + pageNumber);
+        logger.debug("Get stock transfer list from client for page " + pageNumber);
         List<StockTransfer> batch = stockTransferClient.getStockTransfersByPageNumber(pageNumber);
-        System.out.println("Get stock transfer with size " + batch.size());
+        logger.debug("Get stock transfer with size " + batch.size());
         stockTransferRepository.updateBatchStockTransfers(batch);
         return batch.size();
     }

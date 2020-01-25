@@ -1,10 +1,13 @@
 package com.kenji.wms.model.domainobject.stockmove;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class StockTransfer {
     @JsonProperty("StockTransferID")
     private Long stockTransferID;
@@ -19,17 +22,17 @@ public class StockTransfer {
     @JsonProperty("StaffReceived")
     private Long staffReceived;
     @JsonProperty("DateSent")
-    private ZonedDateTime dateSent;
+    private String dateSent;
     @JsonProperty("DateReceived")
-    private ZonedDateTime dateReceived;
+    private String dateReceived;
     @JsonProperty("Status")
     private StockTransferStatus status;
     @JsonProperty("ReasonID")
     private Long reasonID;
     @JsonProperty("Note")
-    private Long note;
+    private String note;
 
-    public StockTransfer(Long stockTransferID, Long transNo, Long fromLocation, Long toLocation, Long staffSent, Long staffReceived, ZonedDateTime dateSent, ZonedDateTime dateReceived, StockTransferStatus status, Long reasonID, Long note) {
+    public StockTransfer(Long stockTransferID, Long transNo, Long fromLocation, Long toLocation, Long staffSent, Long staffReceived, String dateSent, String dateReceived, StockTransferStatus status, Long reasonID, String note) {
         this.stockTransferID = stockTransferID;
         this.transNo = transNo;
         this.fromLocation = fromLocation;
@@ -94,19 +97,19 @@ public class StockTransfer {
         this.staffReceived = staffReceived;
     }
 
-    public ZonedDateTime getDateSent() {
+    public String getDateSent() {
         return dateSent;
     }
 
-    public void setDateSent(ZonedDateTime dateSent) {
+    public void setDateSent(String dateSent) {
         this.dateSent = dateSent;
     }
 
-    public ZonedDateTime getDateReceived() {
+    public String getDateReceived() {
         return dateReceived;
     }
 
-    public void setDateReceived(ZonedDateTime dateReceived) {
+    public void setDateReceived(String dateReceived) {
         this.dateReceived = dateReceived;
     }
 
@@ -126,11 +129,11 @@ public class StockTransfer {
         this.reasonID = reasonID;
     }
 
-    public Long getNote() {
+    public String getNote() {
         return note;
     }
 
-    public void setNote(Long note) {
+    public void setNote(String note) {
         this.note = note;
     }
 

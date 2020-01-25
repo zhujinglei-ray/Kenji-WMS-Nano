@@ -2,6 +2,7 @@ package com.kenji.wms.stock.service;
 
 import com.kenji.wms.model.domainobject.stockmove.StockTransfer;
 import com.kenji.wms.model.domainobject.stockmove.StockTransferItem;
+import com.kenji.wms.model.domainobject.stockmove.StockTransferStatus;
 import com.kenji.wms.stock.clients.StockTransferClient;
 import com.kenji.wms.stock.domain.StockTransferReason;
 import com.kenji.wms.stock.exceptions.FailQueryStockException;
@@ -35,6 +36,8 @@ public class RestStockTransferService implements StockTransferService {
         transfer.setTransNo(nextStockTransferNumber);
         transfer.setFromLocation(fromLocation);
         transfer.setToLocation(toLocation);
+        transfer.setStaffSent(112223L);
+        transfer.setStatus(StockTransferStatus.Sent);
         transfer.setReasonID(StockTransferReason.Internal_Movement.getReasonId());
         StockTransfer stockTransfer = client.createStockTransfer(transfer);
         return stockTransfer;
@@ -55,7 +58,9 @@ public class RestStockTransferService implements StockTransferService {
         long totalTransfersCount = repository.getTotalTransfersCount();
         long pageForUpdate = totalTransfersCount/200;
         List<StockTransfer> pagePrevious = client.getStockTransfersByPageNumber(pageForUpdate);
+        repository.updateBatchStockTransfers(pagePrevious);
         List<StockTransfer> pageAfter = client.getStockTransfersByPageNumber(pageForUpdate + 1);
+        repository.updateBatchStockTransfers(pageAfter);
         long maxPrevious = getMaxNumberFromStockTransferBatch(pagePrevious);
         long maxLast = getMaxNumberFromStockTransferBatch(pageAfter);
         return maxPrevious > maxLast ? maxPrevious + 1 : maxLast + 1;
