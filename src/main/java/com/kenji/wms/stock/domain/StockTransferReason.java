@@ -6,9 +6,9 @@ public enum StockTransferReason {
     Wastage(25470),
     Stock_take(25473),
     Shopify(130402);
-    private final int reasonId;
-    private StockTransferReason(int reasonId) {
+    private final long reasonId;
+    private StockTransferReason(long reasonId) {
         this.reasonId = reasonId;
     }
-    public int getReasonId(){return this.reasonId;}
+    public long getReasonId(){return this.reasonId;}
 }

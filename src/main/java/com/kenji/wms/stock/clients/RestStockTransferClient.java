@@ -5,6 +5,8 @@ import com.kenji.wms.model.domainobject.stockmove.StockTransferItem;
 import com.kenji.wms.model.frontend.WarehouseIdMap;
 import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.utilis.QueryUtilise;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -26,12 +28,16 @@ public class RestStockTransferClient implements StockTransferClient{
     private final int pageCount;
     private final QueryUtilise queryUtilise;
     private final RestTemplate restTemplate;
-
+    private final String stockTransferEndpoint;
+    private final String stockTransferItemEndpoint;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
     @Autowired
     public RestStockTransferClient(
             @Value("${eposnow.base.url.v2}") String eposnowBaseUrl,
             @Value("${eposnow.stock.transfer.page.query.endpoint}")String pageStockTransferQueryEndpoint,
             @Value("${eposnow.stock.transfer.page.query.size}") int pageCount,
+            @Value("${eposnow.stock.transfer.endpoint}") String stockTransferEndpoint,
+            @Value("${eposnow.stock.transfer.item.endpoint}") String stockTransferItemEndpoint,
             QueryUtilise queryUtilise,
             RestTemplate restTemplate) {
         this.eposnowBaseUrl = eposnowBaseUrl;
@@ -39,23 +45,42 @@ public class RestStockTransferClient implements StockTransferClient{
         this.pageCount = pageCount;
         this.queryUtilise = queryUtilise;
         this.restTemplate = restTemplate;
+        this.stockTransferEndpoint = stockTransferEndpoint;
+        this.stockTransferItemEndpoint =stockTransferItemEndpoint;
     }
 
     @Override
-    public StockTransfer createStockTransfer(WarehouseIdMap fromLocation, WarehouseIdMap toLocation) {
-        StockTransfer transfer = new StockTransfer();
-        transfer.setFromLocation(fromLocation.getLocationId());
-        transfer.setToLocation(toLocation.getLocationId());
-        return null;
+    public StockTransfer createStockTransfer(StockTransfer transfer) {
+        String url = eposnowBaseUrl + stockTransferEndpoint;
+        HttpHeaders headers = queryUtilise.getHeaders();
+        HttpEntity entity = new HttpEntity(transfer, headers);
+        ResponseEntity<StockTransfer> transfersNew;
+        try {
+            transfersNew = restTemplate.exchange(url, HttpMethod.POST, entity, StockTransfer.class);
+        } catch (Exception e){
+            logger.debug("Failed to creat stock transfer on remote server");
+            return transfer;
+        }
+        return transfersNew.getBody();
     }
 
     @Override
-    public StockTransferItem createStockTransferItem(StockTransfer transfer, int qty) {
-        return null;
+    public StockTransferItem createStockTransferItem(StockTransferItem item) {
+        String url = eposnowBaseUrl +stockTransferItemEndpoint;
+        HttpHeaders headers = queryUtilise.getHeaders();
+        HttpEntity entity = new HttpEntity(item, headers);
+        ResponseEntity<StockTransferItem> itemNew;
+        try {
+            itemNew = restTemplate.exchange(url, HttpMethod.POST, entity, StockTransferItem.class);
+        } catch (Exception e){
+            logger.debug("Failed to creat stock transfer on remote server");
+            return item;
+        }
+        return itemNew.getBody();
     }
 
     @Override
-    public List<StockTransfer> getStockTransfersByPageNumber(int pageNumber) throws FailQueryStockException {
+    public List<StockTransfer> getStockTransfersByPageNumber(long pageNumber) throws FailQueryStockException {
         String url = eposnowBaseUrl + String.format(pageStockTransferQueryEndpoint, pageNumber);
         HttpHeaders headers = queryUtilise.getHeaders();
         HttpEntity entity = new HttpEntity(headers);
@@ -68,9 +93,5 @@ public class RestStockTransferClient implements StockTransferClient{
         } catch (Exception e) {
             throw new FailQueryStockException("Failed to query stock transfer for page " + pageNumber , e);
         }
-    }
-
-    private long getNextTransNo(){
-        return 0;
     }
 }

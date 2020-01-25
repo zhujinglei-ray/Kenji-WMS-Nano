@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import com.kenji.wms.model.domainobject.stockmove.StockTransfer;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class PostgresStockTransferRepository implements  StockTransferRepository{
 
     private JdbcTemplate jdbcTemplate;
@@ -24,6 +26,13 @@ public class PostgresStockTransferRepository implements  StockTransferRepository
     @Override
     public long getTotalTransfersCount() {
         String sql =  "select count(*) from stockTransfer";
+        Long count = jdbcTemplate.queryForObject(sql, Long.class);
+        return count;
+    }
+
+    @Override
+    public long findLargestTransferNumber() {
+        String sql =  "select max(stock_transfer_number) from stockTransfer";
         Long count = jdbcTemplate.queryForObject(sql, Long.class);
         return count;
     }

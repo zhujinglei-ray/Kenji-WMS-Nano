@@ -8,7 +8,7 @@ import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import java.util.List;
 
 public interface StockTransferClient {
-    StockTransfer createStockTransfer(WarehouseIdMap fromLocation, WarehouseIdMap toLocation);
-    StockTransferItem createStockTransferItem(StockTransfer transfer, int qty);
-    List<StockTransfer> getStockTransfersByPageNumber(int pageNumber) throws FailQueryStockException;
+    StockTransfer createStockTransfer(StockTransfer stockTransfer);
+    StockTransferItem createStockTransferItem(StockTransferItem item)  throws FailQueryStockException;
+    List<StockTransfer> getStockTransfersByPageNumber(long pageNumber) throws FailQueryStockException;
 }

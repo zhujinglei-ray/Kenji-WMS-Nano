@@ -45,4 +45,17 @@ public class ProductSyncController {
         BigInteger bigInteger = synchronizeService.syncAllProductStockWithEposnow();
         return ResponseEntity.ok("Sync with all product stocks with size: " + bigInteger);
     }
+
+    @GetMapping(path="/sync/stocktransfer/{pageNumber}")
+    public ResponseEntity<String> syncStockTransferByPageNumber(@PathVariable("pageNumber") int pageNumber) throws FailQueryStockException {
+        System.out.println("prepared to sync with page number" + pageNumber);
+        long totalCount = synchronizeService.syncStockTransferByPage(pageNumber);
+        return ResponseEntity.ok("Sync with " + totalCount +" stock transfer records for page " + pageNumber);
+    }
+
+    @GetMapping(path="/sync/stocktransfer/all")
+    public ResponseEntity<String> syncAllStockTransfers() throws FailQueryStockException {
+        BigInteger bigInteger = synchronizeService.syncAllStockTransferWithEposnow();
+        return ResponseEntity.ok("Sync with all stock transfers with size: " + bigInteger);
+    }
 }

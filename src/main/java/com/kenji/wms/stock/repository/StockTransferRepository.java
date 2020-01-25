@@ -7,4 +7,5 @@ import java.util.List;
 public interface StockTransferRepository {
     void updateBatchStockTransfers(List<StockTransfer> transfers);
     long getTotalTransfersCount();
+    long findLargestTransferNumber();
 }

@@ -10,6 +10,7 @@ import com.kenji.wms.stock.exceptions.FailQueryProductException;
 import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.repository.ProductRepository;
 import com.kenji.wms.stock.repository.StockRepository;
+import com.kenji.wms.stock.repository.StockTransferRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class RestSynchronizeService implements SynchronizeService {
     private final Integer productPageSize;
     private final StockRepository stockRepository;
     private final ProductRepository productRepository;
+    private final StockTransferRepository  stockTransferRepository;
 
     public RestSynchronizeService(
             StockQueryClient stockQueryClient,
@@ -35,7 +37,8 @@ public class RestSynchronizeService implements SynchronizeService {
             @Value("${eposnow.product.page.query.size}")Integer productPageSize,
             StockRepository stockRepository,
             ProductRepository productRepository,
-            StockTransferClient stockTransferClient) {
+            StockTransferClient stockTransferClient,
+            StockTransferRepository stockTransferRepository) {
         this.stockQueryClient = stockQueryClient;
         this.productQueryClient = productQueryClient;
         this.stockPageSize = stockPageSize;
@@ -43,6 +46,7 @@ public class RestSynchronizeService implements SynchronizeService {
         this.stockRepository = stockRepository;
         this.productRepository = productRepository;
         this.stockTransferClient = stockTransferClient;
+        this.stockTransferRepository = stockTransferRepository;
     }
 
     @Override
@@ -83,8 +87,8 @@ public class RestSynchronizeService implements SynchronizeService {
             pageCount++;
             if (batch.size() < stockPageSize) break;
         }
-        stock.updateBatchProductStocks(products);
-        return BigInteger.valueOf(products.size())
+        stockTransferRepository.updateBatchStockTransfers(transfers);
+        return BigInteger.valueOf(transfers.size());
     }
 
     @Override
@@ -107,6 +111,10 @@ public class RestSynchronizeService implements SynchronizeService {
 
     @Override
     public long syncStockTransferByPage(Integer pageNumber) throws FailQueryStockException {
-        return 0;
+        System.out.println("Get stock transfer list from client for page " + pageNumber);
+        List<StockTransfer> batch = stockTransferClient.getStockTransfersByPageNumber(pageNumber);
+        System.out.println("Get stock transfer with size " + batch.size());
+        stockTransferRepository.updateBatchStockTransfers(batch);
+        return batch.size();
     }
 }
