@@ -7,4 +7,6 @@ import java.util.List;
 public interface ProductRepository {
     void updateBatchProducts(List<Product> products);
     long getProductIdByBarcode(String barcode);
+    Product getProductByProductId(String productId);
+    String getBarcodeByProductId(String productId);
 }
