@@ -7,9 +7,10 @@ import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.service.StockTransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class StockMovementController {
@@ -20,7 +21,7 @@ public class StockMovementController {
         this.stockTransferService = stockTransferService;
     }
 
-    @GetMapping("/stockmove/{fromLocation}/{toLocation}/{productId}/{qty}")
+    @GetMapping("/stockmove/{productId}{fromLocation}/{toLocation}/{productId}/{qty}")
     public ResponseEntity<StockTransferItem> moveStocks(
             @PathVariable("fromLocation") Long fromLocation,
             @PathVariable("toLocation") Long toLocation,
