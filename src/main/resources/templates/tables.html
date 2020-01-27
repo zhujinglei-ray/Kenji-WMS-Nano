@@ -387,7 +387,7 @@
                                 <tr>
                                     <th>Product Name</th>
                                     <th>Barcode</th>
-                                    <th>Stock ID</th>
+                                    <th>Total</th>
                                     <th>Qty In Stock</th>
                                     <th>Qty Bury</th>
                                     <th>Qty Preston</th>
@@ -399,7 +399,7 @@
                                 <tr>
                                     <th>Product Name</th>
                                     <th>Barcode</th>
-                                    <th>Stock ID</th>
+                                    <th>Total</th>
                                     <th>Transfered Stock</th>
                                     <th>Qty to Bury</th>
                                     <th>Qty to Preston</th>
@@ -411,7 +411,7 @@
                                 <tr>
                                     <th><span th:text=" ${productName}"></span></th>
                                     <th><span th:text=" ${barcode}"></span></th>
-                                    <th><span th:text=" ${stockId}"></span></th>
+                                    <th><span th:text=" ${totalQty}"></span></th>
                                     <th><span th:text=" ${qtyInStock}"></span></th>
                                     <th><span th:text=" ${qtyInBury}"></span></th>
                                     <th><span th:text=" ${qtyInPreston}"></span></th>
@@ -420,19 +420,31 @@
                                 </tr>
 
                                 <tr>
-                                  <th><span th:text=" ${productName}"></span></th>
-                                  <th><span th:text=" ${barcode}"></span></th>
-                                  <th><span th:text=" ${stockId}"></span></th>
-                                  <th><span th:text=" ${qtyInStock}"></span></th>
-                                  <th><span th:text=" ${qtyInBury}"></span></th>
-                                  <th><span th:text=" ${qtyInPreston}"></span></th>
-                                  <th><span th:text=" ${qtyInWarrinton}"></span></th>
-                                  <th><span th:text=" ${qtyInArndale}"></span></th>
+                                    <th><span th:text=" ${productName}"></span></th>
+                                    <th><span th:text=" ${barcode}"></span></th>
+                                    <th><span th:text=" ${totalQty}"></span></th>
+                                    <th><script> document.write(totalMoved())</script></th>
+                                    <th><span><input id="qtyMovedBury" style="width:50px; height:20px;" type="number"/></span></th>
+                                    <th><span><input id="qtyMovedPreston"  style="width:50px; height:20px;" type="number"/></span></th>
+                                    <th><span><input id="qtyMovedWarrinton" style="width:50px; height:20px;" type="number"/></span></th>
+                                    <th><span><input id="qtyMovedArndale" style="width:50px; height:20px;" type="number"/></span></th>
                                 </tr>
-
-
                                 </tbody>
                             </table>
+                            <input type="submit" value="Move!!!!!" οnclick="move()"/>
+                            <script>
+                                function move() {
+                                alert(document.getElementById("data").value);
+                            }
+                                function totalMoved() {
+                                    var qtyMovedBury =document.getElementById("qtyMovedBury").value;
+                                    var qtyMovedPreston = document.getElementById("qtyMovedPreston").value;
+                                    var qtyMovedWarrinton = document.getElementById("qtyMovedWarrinton").value;
+                                    var qtyMovedArndale = document.getElementById("qtyMovedArndale").value;
+                                    var qtyMoved = qtyMovedBury + qtyMovedPreston + qtyMovedWarrinton + qtyMovedArndale;
+                                    return qtyMoved;
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>

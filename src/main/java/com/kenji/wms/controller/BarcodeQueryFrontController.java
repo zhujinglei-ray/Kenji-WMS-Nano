@@ -32,6 +32,7 @@ public class BarcodeQueryFrontController {
         String barcodeInput = getInput(request);
         try{
         SearchedProduct searchedProduct = barcodeQueryService.getStockReturnToFront(barcodeInput);
+        int totalQty = searchedProduct.getQtyInWarehouse() + searchedProduct.getQtyInArndale() +  searchedProduct.getQtyInBury() + searchedProduct.getQtyInPreston() + searchedProduct.getQtyInWarrinton();
         model.addAttribute("productName",searchedProduct.getName());
         model.addAttribute("qtyInStock",searchedProduct.getQtyInWarehouse());
         model.addAttribute("qtyInArndale",searchedProduct.getQtyInArndale());
@@ -39,6 +40,7 @@ public class BarcodeQueryFrontController {
         model.addAttribute("qtyInPreston", searchedProduct.getQtyInPreston());
         model.addAttribute("qtyInWarrinton", searchedProduct.getQtyInWarrinton());
         model.addAttribute("barcode",searchedProduct.getBarcode());
+        model.addAttribute("totalQty",totalQty);
         return "/tables";
     }catch (Exception e){
             return "/tables";
