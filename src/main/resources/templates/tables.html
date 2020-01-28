@@ -4,10 +4,10 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
     <title>Stock View Tables</title>
 
     <!-- Custom fonts for this template -->
@@ -370,11 +370,6 @@
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For
-                    more information about DataTables, please visit the <a target="_blank"
-                                                                           href="https://datatables.net">official
-                        DataTables documentation</a>.</p>
-
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -382,11 +377,15 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="10">
                                 <thead>
                                 <tr>
                                     <th>Product Name</th>
+                                    <th style="height: 33px"><span th:text=" ${productName}"></span></th>
                                     <th>Barcode</th>
+                                    <th style="height: 33px"><span type="text" id="barcode_for_remove" th:text=" ${barcode}"></span></th>
+                                </tr>
+                                <tr>
                                     <th>Total</th>
                                     <th>Qty In Stock</th>
                                     <th>Qty Bury</th>
@@ -397,8 +396,6 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Product Name</th>
-                                    <th>Barcode</th>
                                     <th>Total</th>
                                     <th>Transfered Stock</th>
                                     <th>Qty to Bury</th>
@@ -409,29 +406,25 @@
                                 </tfoot>
                                 <tbody>
                                 <tr>
-                                    <th><span th:text=" ${productName}"></span></th>
-                                    <th ><span type="text" id="barcode_for_remove" th:text=" ${barcode}"></span></th>
-                                    <th><span th:text=" ${totalQty}"></span></th>
-                                    <th><span th:text=" ${qtyInStock}"></span></th>
-                                    <th><span th:text=" ${qtyInBury}"></span></th>
-                                    <th><span th:text=" ${qtyInPreston}"></span></th>
-                                    <th><span th:text=" ${qtyInWarrinton}"></span></th>
-                                    <th><span th:text=" ${qtyInArndale}"></span></th>
+                                    <th style="height: 33px"><span th:text=" ${totalQty}"></span></th>
+                                    <th style="height: 33px"><span th:text=" ${qtyInStock}"></span></th>
+                                    <th style="height: 33px"><span th:text=" ${qtyInBury}"></span></th>
+                                    <th style="height: 33px"><span th:text=" ${qtyInPreston}"></span></th>
+                                    <th style="height: 33px"><span th:text=" ${qtyInWarrinton}"></span></th>
+                                    <th style="height: 33px"><span th:text=" ${qtyInArndale}"></span></th>
                                 </tr>
 
                                 <tr>
-                                    <th><span th:text=" ${productName}"></span></th>
-                                    <th><span th:text=" ${barcode}"></span></th>
                                     <th><span th:text=" ${totalQty}"></span></th>
-                                    <th><span><input type="number" name="total" id="total" style="width:50px; height:20px;"/></span></span></th>
+                                    <th><span><input type="number" name="total" id="total" style="border-style:none"/></span></span></th>
                                     <th><span th:value="${qtyMovedBury}"><input onblur="totalMoved()" id="qtyMovedBury"
-                                                     style="width:50px; height:20px;" type="number"/></span></th>
+                                                                                style="border-style:none" type="number"/></span></th>
                                     <th><span th:value="${qtyMovedPreston}"><input onblur="totalMoved()" id="qtyMovedPreston"
-                                                     style="width:50px; height:20px;" type="number"/></span></th>
+                                                                                   style="border-style:none" type="number"/></span></th>
                                     <th><span th:value="${qtyMovedWarrinton}"><input onblur="totalMoved()" id="qtyMovedWarrinton"
-                                                     style="width:50px; height:20px;" type="number"/></span></th>
+                                                                                     style="border-style:none" type="number"/></span></th>
                                     <th><span th:value="${qtyMovedArndale}"><input onblur="totalMoved()" id="qtyMovedArndale"
-                                                     style="width:50px; height:20px;" type="number"/></span></th>
+                                                                                   style="border-style:none" type="number"/></span></th>
                                 </tr>
                                 </tbody>
                             </table>
@@ -451,7 +444,7 @@
                                         var qtyMovedWarrinton = getNumber(document.getElementById("qtyMovedWarrinton").value);
                                         var qtyMovedArndale = getNumber(document.getElementById("qtyMovedArndale").value);
                                         var mybarcode = barcode_searched;
-                                        form.action = "http://localhost:8080/stockmove/all" + "/" + qtyMovedBury  + "/" +qtyMovedPreston  + "/" +qtyMovedWarrinton + "/" +qtyMovedArndale;
+                                        form.action = "http://localhost:8080/stockmove/all" + "/" + qtyMovedBury  + "/" +qtyMovedPreston  + "/" +qtyMovedWarrinton + "/" +qtyMovedArndale + "/" + mybarcode;
                                         form.method = "get";
                                         form.submit();
                                 }

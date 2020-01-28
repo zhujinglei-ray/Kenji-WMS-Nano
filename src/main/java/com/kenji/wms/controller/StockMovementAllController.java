@@ -25,31 +25,31 @@ public class StockMovementAllController {
     }
 
 
-    @RequestMapping(path ="/stockmove/all/{qtyBury}/{qtyPreston}/{qtyWarrinton}/{qtyArndale}", method = RequestMethod.GET)
-    public ResponseEntity<String> moveAllStocks(
-            //@PathVariable("barcode") int barcode,
+    @RequestMapping(path ="/stockmove/all/{qtyBury}/{qtyPreston}/{qtyWarrinton}/{qtyArndale}/{barcode}", method = RequestMethod.GET)
+    public String moveAllStocks(
                                                 @PathVariable("qtyBury") int qtyBury,
                                                 @PathVariable("qtyPreston") int qtyPreston,
                                                 @PathVariable("qtyWarrinton") int qtyWarrinton,
-                                                @PathVariable("qtyArndale") int qtyArndale){
-//        Long productId;
-//        try {
-//            productId = restProductQueryService.getProductByBarcode(String.valueOf(barcode)).getId();
-//        } catch (FailQueryProductException e) {
-//            return  ResponseEntity.ok("1");
-//        }
+                                                @PathVariable("qtyArndale") int qtyArndale,
+                                                @PathVariable("barcode") int barcode){
+        Long productId;
+        try {
+            productId = restProductQueryService.getProductByBarcode(String.valueOf(barcode)).getId();
+        } catch (FailQueryProductException e) {
+            return  "/tables";
+        }
 
         List<TransferLocationQty> transferLocationQties = new ArrayList<>();
-        TransferLocationQty transferToBury = stockMovementTransferAllService.resolveQtyForLocation(WarehouseIdMap.BURY,qtyBury,Long.valueOf(1234));
-        TransferLocationQty transferToPreston = stockMovementTransferAllService.resolveQtyForLocation(WarehouseIdMap.PRESTON,qtyPreston,Long.valueOf(1234));
-        TransferLocationQty transferToWarrinton = stockMovementTransferAllService.resolveQtyForLocation(WarehouseIdMap.WARRINTON, qtyWarrinton,Long.valueOf(1234));
-        TransferLocationQty transferToArndale = stockMovementTransferAllService.resolveQtyForLocation(WarehouseIdMap.ARNDALE,qtyArndale,Long.valueOf(1234));
+        TransferLocationQty transferToBury = stockMovementTransferAllService.resolveQtyForLocation(WarehouseIdMap.BURY,qtyBury,productId);
+        TransferLocationQty transferToPreston = stockMovementTransferAllService.resolveQtyForLocation(WarehouseIdMap.PRESTON,qtyPreston,productId);
+        TransferLocationQty transferToWarrinton = stockMovementTransferAllService.resolveQtyForLocation(WarehouseIdMap.WARRINTON, qtyWarrinton,productId);
+        TransferLocationQty transferToArndale = stockMovementTransferAllService.resolveQtyForLocation(WarehouseIdMap.ARNDALE,qtyArndale,productId);
         transferLocationQties.add(transferToBury);
         transferLocationQties.add(transferToPreston);
         transferLocationQties.add(transferToWarrinton);
         transferLocationQties.add(transferToArndale);
         String result = stockMovementTransferAllService.transferAll(transferLocationQties);
         System.out.println("Wow!!!!");
-        return  ResponseEntity.ok("1");
+        return  "/tables";
     }
 }
