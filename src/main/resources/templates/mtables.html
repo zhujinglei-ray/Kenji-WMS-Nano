@@ -21,15 +21,17 @@
     <!-- Custom styles for this page -->
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="/css/mtable.css" rel="stylesheet">
     <!-- JavaScript file -->
 </head>
 
-<body id="page-top">
+<body id="page-top" class="sidebar-toggled">
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -377,55 +379,72 @@
                         <h6 class="m-0 font-weight-bold text-primary">Stock View</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="10">
+                        <div class="table-responsive" >
+                            <table class="table table-bordered w-auto" id="dataTable" cellspacing="10">
                                 <thead>
                                 <tr>
-                                    <th>Product Name</th>
-                                    <th style="height: 33px"><span th:text=" ${productName}"></span></th>
-                                    <th>Barcode</th>
-                                    <th style="height: 33px"><span type="text" id="barcode_for_remove" th:text=" ${barcode}"></span></th>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <th>Qty In Stock</th>
-                                    <th>Qty Bury</th>
-                                    <th>Qty Preston</th>
-                                    <th>Qty Warrinton</th>
-                                    <th>Qty Arndale</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Total</th>
-                                    <th>Transfered Stock</th>
-                                    <th>Qty to Bury</th>
-                                    <th>Qty to Preston</th>
-                                    <th>Qty to Warrinton</th>
-                                    <th>Qty to Arndale</th>
-                                </tr>
-                                </tfoot>
-                                <tbody>
-                                <tr>
-                                    <th style="height: 33px"><span th:text=" ${totalQty}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInStock}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInBury}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInPreston}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInWarrinton}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInArndale}"></span></th>
+                                    <th><span>Product Name</span></th>
+                                    <th style="height: 33px" colspan="2" ><span type="text" th:text="${productName}" ></span></th>
                                 </tr>
 
                                 <tr>
+                                    <th><span>Barcode </span></th>
+                                    <th style="height: 33px" colspan="2" ><form class="form-inline">
+                                        <i class="fas fa-search" aria-hidden="true"></i>
+                                        <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+                                               aria-label="Search">
+                                    </form></th>
+                                </tr>
+                                <tr>
+                                    <th class="auto-font">Location</th>
+                                    <th class="auto-font">Current</th>
+                                    <th class="auto-font">Move</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+<!--                                <tr>-->
+<!--                                    <th>Total</th>-->
+<!--                                    <th>Transfered Stock</th>-->
+<!--                                    <th>Qty to Bury</th>-->
+<!--                                    <th>Qty to Preston</th>-->
+<!--                                    <th>Qty to Warrinton</th>-->
+<!--                                    <th>Qty to Arndale</th>-->
+<!--                                </tr>-->
+                                </tfoot>
+                                <tbody>
+                                <tr>
+                                    <th class="auto-font">Total</th>
                                     <th><span th:text=" ${totalQty}"></span></th>
-                                    <th><span><input type="number" name="total" id="total" style="border-style:none"/></span></span></th>
-                                    <th><span th:value="${qtyMovedBury}"><input onblur="totalMoved()" id="qtyMovedBury"
-                                                                                style="border-style:none" type="number"/></span></th>
-                                    <th><span th:value="${qtyMovedPreston}"><input onblur="totalMoved()" id="qtyMovedPreston"
-                                                                                   style="border-style:none" type="number"/></span></th>
-                                    <th><span th:value="${qtyMovedWarrinton}"><input onblur="totalMoved()" id="qtyMovedWarrinton"
-                                                                                     style="border-style:none" type="number"/></span></th>
-                                    <th><span th:value="${qtyMovedArndale}"><input onblur="totalMoved()" id="qtyMovedArndale"
-                                                                                   style="border-style:none" type="number"/></span></th>
+                                    <th><span></span></th>
+                                </tr>
+                                <tr>
+                                    <th class="auto-font">Warehouse</th>
+                                    <th><span th:text=" ${qtyInStock}"></span></th>
+                                    <th class="auto-font" ><input class="limit-input" id="totalMoved" type="number" onblur="totalMoved()" disabled></input></th>
+                                </tr>
+
+                                <tr>
+                                    <th class="auto-font">Bury</th>
+                                    <th><span th:text=" ${qtyInBury}"></span></th>
+                                    <th class="auto-font" ><input class="limit-input" id="qtyMovedBury" type="number" onblur="totalMoved()"></input></th>
+                                </tr>
+
+                                <tr>
+                                    <th class="auto-font">Preston</th>
+                                    <th><span th:text=" ${qtyInPreston}"></span></th>
+                                    <th class="auto-font" ><input class="limit-input" id="qtyMovedPreston" type="number" onblur="totalMoved()"></input></th>
+                                </tr>
+
+                                <tr>
+                                    <th class="auto-font">Warrinton</th>
+                                    <th><span th:text=" ${qtyInPreston}"></span></th>
+                                    <th class="auto-font" ><input class="limit-input" id="qtyMovedWarrinton" type="number" onblur="totalMoved()"></input></th>
+                                </tr>
+
+                                <tr>
+                                    <th class="auto-font">Arndale</th>
+                                    <th><span th:text=" ${qtyInArndale}"></span></th>
+                                    <th class="auto-font" ><input class="limit-input" id="qtyMovedArndale" type="number" onblur="totalMoved()"></input></th>
                                 </tr>
                                 </tbody>
                             </table>
