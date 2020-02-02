@@ -1,13 +1,13 @@
 function move() {
-    var form = document.forms[2];
     var qtyMovedBury = getNumber(document.getElementById("qtyMovedBury").value);
     var qtyMovedPreston = getNumber(document.getElementById("qtyMovedPreston").value);
     var qtyMovedWarrinton = getNumber(document.getElementById("qtyMovedWarrinton").value);
     var qtyMovedArndale = getNumber(document.getElementById("qtyMovedArndale").value);
     var mybarcode = barcode_searched;
-    form.action = "http://localhost:8080/stockmove/all" + "/" + qtyMovedBury  + "/" +qtyMovedPreston  + "/" +qtyMovedWarrinton + "/" +qtyMovedArndale + "/" + mybarcode;
-    form.method = "get";
-    form.submit();
+    let url = location.origin + "/stockmove/all" + "/" + qtyMovedBury  + "/" +qtyMovedPreston  + "/" +qtyMovedWarrinton + "/" +qtyMovedArndale + "/" + mybarcode;
+    fetch(url).then((response) => {
+        location.reload();
+    });
 }
 
 function getNumber(qty) {

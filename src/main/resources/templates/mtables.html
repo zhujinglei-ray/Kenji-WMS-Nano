@@ -391,7 +391,7 @@
                                     <th><span>Barcode </span></th>
                                     <th style="height: 33px" colspan="2" ><form class="form-inline">
                                         <i class="fas fa-search" aria-hidden="true"></i>
-                                        <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+                                        <input name="barcodeInput" class="form-control form-control-sm ml-3 w-75" type="text" th:placeholder="${barcode}"
                                                aria-label="Search">
                                     </form></th>
                                 </tr>
@@ -401,16 +401,6 @@
                                     <th class="auto-font">Move</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-<!--                                <tr>-->
-<!--                                    <th>Total</th>-->
-<!--                                    <th>Transfered Stock</th>-->
-<!--                                    <th>Qty to Bury</th>-->
-<!--                                    <th>Qty to Preston</th>-->
-<!--                                    <th>Qty to Warrinton</th>-->
-<!--                                    <th>Qty to Arndale</th>-->
-<!--                                </tr>-->
-                                </tfoot>
                                 <tbody>
                                 <tr>
                                     <th class="auto-font">Total</th>
@@ -437,7 +427,7 @@
 
                                 <tr>
                                     <th class="auto-font">Warrinton</th>
-                                    <th><span th:text=" ${qtyInPreston}"></span></th>
+                                    <th><span th:text=" ${qtyInWarrinton}"></span></th>
                                     <th class="auto-font" ><input class="limit-input" id="qtyMovedWarrinton" type="number" onblur="totalMoved()"></input></th>
                                 </tr>
 
@@ -449,7 +439,7 @@
                                 </tbody>
                             </table>
                             <form class="form0submit">
-                            <input type="submit" value="Move" onclick="move()"/>
+                            <input type="button" value="Move" onclick="move()"/>
                             </form>
                             <script th:inline="javascript">
                                 /*<![CDATA[*/

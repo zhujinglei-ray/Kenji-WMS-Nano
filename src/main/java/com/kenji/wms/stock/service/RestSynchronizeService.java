@@ -67,10 +67,12 @@ public class RestSynchronizeService implements SynchronizeService {
 
     @Override
     public BigInteger syncAllProductStockWithEposnow() throws FailQueryStockException {
+        logger.debug("Start sync all stocks' records");
         List<ProductStock> products = new LinkedList<>();
         int pageCount = 1;
         while (true) {
             Collection<ProductStock> batch = stockQueryClient.getStocksByPageNumber(pageCount);
+            logger.debug("Page {} of stocks record has finished", pageCount);
             products.addAll(batch);
             pageCount++;
             if (batch.size() < stockPageSize) break;

@@ -5,6 +5,8 @@ import com.kenji.wms.model.frontend.WarehouseIdMap;
 import com.kenji.wms.queryservice.StockMovementTransferAllService;
 import com.kenji.wms.stock.exceptions.FailQueryProductException;
 import com.kenji.wms.stock.service.RestProductQueryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import java.util.List;
 public class StockMovementAllController {
     private StockMovementTransferAllService stockMovementTransferAllService;
     private final RestProductQueryService restProductQueryService;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
     public StockMovementAllController(StockMovementTransferAllService stockMovementTransferAllService, RestProductQueryService restProductQueryService) {
@@ -34,6 +37,7 @@ public class StockMovementAllController {
                                                 @PathVariable("barcode") int barcode){
         Long productId;
         try {
+            logger.debug("Prepared to move stock for barcode {}", barcode);
             productId = restProductQueryService.getProductByBarcode(String.valueOf(barcode)).getId();
         } catch (FailQueryProductException e) {
             return  "/tables";
