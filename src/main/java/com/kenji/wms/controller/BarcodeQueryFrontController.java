@@ -38,7 +38,9 @@ public class BarcodeQueryFrontController {
 
         logger.debug("Request from request {}, it is a mobile deivice {}", request.getHeader("User-Agent"), AgentUtilise.checkAgentIsMobile(request.getHeader("User-Agent")) );
         try {
+            logger.debug("Target product with id {}", barcodeInput);
             SearchedProduct searchedProduct = barcodeQueryService.getStockReturnToFront(barcodeInput);
+            logger.debug("Result product with id {} is {}", barcodeInput, searchedProduct);
             int totalQty = searchedProduct.getQtyInWarehouse() + searchedProduct.getQtyInArndale() + searchedProduct.getQtyInBury() + searchedProduct.getQtyInPreston() + searchedProduct.getQtyInWarrinton();
             model.addAttribute("productName", searchedProduct.getName() == null? "Product Name": searchedProduct.getName());
             model.addAttribute("qtyInStock", searchedProduct.getQtyInWarehouse());
