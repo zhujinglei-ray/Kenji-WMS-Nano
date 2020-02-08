@@ -40,7 +40,7 @@ public class StockMovementAllController {
             logger.debug("Prepared to move stock for barcode {}", barcode);
             productId = restProductQueryService.getProductByBarcode(String.valueOf(barcode)).getId();
         } catch (FailQueryProductException e) {
-            return  "/tables";
+            return  "tables";
         }
 
         List<TransferLocationQty> transferLocationQties = new ArrayList<>();
@@ -54,6 +54,6 @@ public class StockMovementAllController {
         transferLocationQties.add(transferToArndale);
         String result = stockMovementTransferAllService.transferAll(transferLocationQties);
         System.out.println("Wow!!!!");
-        return  "/tables";
+        return  "tables";
     }
 }

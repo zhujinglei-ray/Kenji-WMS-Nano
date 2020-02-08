@@ -34,7 +34,7 @@ public class BarcodeQueryFrontController {
     @RequestMapping("/tables")
     public String stockTable(HttpServletRequest request, Model model) {
         String barcodeInput = getInput(request);
-        String returnPage = AgentUtilise.checkAgentIsMobile(request.getHeader("User-Agent")) ? "/mtables" : "/tables";
+        String returnPage = AgentUtilise.checkAgentIsMobile(request.getHeader("User-Agent")) ? "mtables" : "tables";
 
         logger.debug("Request from request {}, it is a mobile deivice {}", request.getHeader("User-Agent"), AgentUtilise.checkAgentIsMobile(request.getHeader("User-Agent")) );
         try {
