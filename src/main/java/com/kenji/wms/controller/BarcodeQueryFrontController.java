@@ -52,6 +52,7 @@ public class BarcodeQueryFrontController {
             model.addAttribute("totalQty", totalQty);
             return returnPage;
         } catch (Exception e) {
+            logger.error("Failed to find product {}", e);
             return returnPage;
         }
     }
