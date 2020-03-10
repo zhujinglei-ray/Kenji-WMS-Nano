@@ -20,6 +20,7 @@ public class StockMovementTransferAllService {
     }
 
     public String transferAll(List<TransferLocationQty> locationQties){
+//        StockTransfer stockTransfer = stockTransferService.createStockTransfer(transferLocationQty.getFromLocation(), transferLocationQty.getToLocation());
         locationQties.forEach(
                 this::sendRequest
         );

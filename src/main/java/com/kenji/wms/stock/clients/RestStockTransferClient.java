@@ -66,7 +66,7 @@ public class RestStockTransferClient implements StockTransferClient{
 
     @Override
     public StockTransferItem createStockTransferItem(StockTransferItem item) {
-        String url = eposnowBaseUrl +stockTransferItemEndpoint;
+        String url = eposnowBaseUrl + stockTransferItemEndpoint;
         HttpHeaders headers = queryUtilise.getHeadersV2();
         HttpEntity entity = new HttpEntity(item, headers);
         ResponseEntity<StockTransferItem> itemNew;
