@@ -13,5 +13,6 @@ public interface StockTransferService {
     StockTransfer createStockTransfer(Long fromLocation, Long toLocation) throws FailQueryStockException;
     StockTransferItem createStockTransferItem(StockTransfer stockTransfer, Long productId, Long qty) throws FailQueryStockException;
     void saveMoveForUsername(String username, Long fromLocation, Long toLocation, Long productId, int qty);
+    void saveMoveForUsername(String username, TransferLocationQty transferLocationQty);
     Map<Pair<Integer, Integer>, List<TransferLocationQty>> getTransferMapForUser(String username);
 }

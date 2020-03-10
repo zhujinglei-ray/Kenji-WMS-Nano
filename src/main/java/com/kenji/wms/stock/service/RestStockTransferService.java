@@ -70,6 +70,11 @@ public class RestStockTransferService implements StockTransferService {
     }
 
     @Override
+    public void saveMoveForUsername(String username, TransferLocationQty transferLocationQty) {
+        batchMoveRepository.addOneTransferItem(username, transferLocationQty);
+    }
+
+    @Override
     public Map<Pair<Integer, Integer>, List<TransferLocationQty>> getTransferMapForUser(String username) {
         return batchMoveRepository.getAllMoveByUsername(username);
     }
