@@ -3,9 +3,9 @@ package com.kenji.wms.stock.repository;
 import com.kenji.wms.model.frontend.TransferLocationQty;
 import com.kenji.wms.model.frontend.WarehouseIdMap;
 import com.kenji.wms.stock.domain.BatchStockMove;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -58,7 +58,7 @@ public class InMemoryBatchMoveRepository implements BatchMoveRepository{
             Map<Pair<Integer, Integer>, List<TransferLocationQty>> userMoveMap = new HashMap<>();
             List<BatchStockMove> batchStockMoves = cache.get(username);
             for (BatchStockMove batchStockMove: batchStockMoves) {
-                Pair<Integer, Integer> key = new Pair<>(batchStockMove.getFromLocationId(), batchStockMove.getToLocationId());
+                Pair<Integer, Integer> key = Pair.of(batchStockMove.getFromLocationId(), batchStockMove.getToLocationId());
                 List<TransferLocationQty> currentMoves = userMoveMap.getOrDefault(key, new LinkedList<>());
                 currentMoves.addAll(batchStockMove.getTransferItems());
                 userMoveMap.put(key, currentMoves);

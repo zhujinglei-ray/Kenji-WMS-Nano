@@ -8,12 +8,21 @@ public class TransferLocationQty {
     private Long toLocation;
     private int qty;
     private Long productId;
+    private String productName;
 
     public TransferLocationQty(Long fromLocation, Long toLocation, int qty, Long productId) {
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.qty = qty;
         this.productId = productId;
+    }
+
+    public TransferLocationQty(Long fromLocation, Long toLocation, int qty, Long productId, String productName) {
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
+        this.qty = qty;
+        this.productId = productId;
+        this.productName = productName;
     }
 
     public TransferLocationQty() {
@@ -51,6 +60,14 @@ public class TransferLocationQty {
         this.productId = productId;
     }
 
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     @Override
     public boolean equals(Object o) {

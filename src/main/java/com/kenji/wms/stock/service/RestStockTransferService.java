@@ -9,8 +9,8 @@ import com.kenji.wms.stock.domain.StockTransferReason;
 import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.repository.BatchMoveRepository;
 import com.kenji.wms.stock.repository.StockTransferRepository;
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

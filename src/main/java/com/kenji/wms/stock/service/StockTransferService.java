@@ -4,7 +4,8 @@ import com.kenji.wms.model.domainobject.stockmove.StockTransfer;
 import com.kenji.wms.model.domainobject.stockmove.StockTransferItem;
 import com.kenji.wms.model.frontend.TransferLocationQty;
 import com.kenji.wms.stock.exceptions.FailQueryStockException;
-import javafx.util.Pair;
+import org.springframework.data.util.Pair;
+
 
 import java.util.List;
 import java.util.Map;

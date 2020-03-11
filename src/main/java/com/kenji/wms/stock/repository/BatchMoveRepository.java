@@ -3,7 +3,7 @@ package com.kenji.wms.stock.repository;
 import com.kenji.wms.model.frontend.TransferLocationQty;
 import com.kenji.wms.model.frontend.WarehouseIdMap;
 import com.kenji.wms.stock.domain.BatchStockMove;
-import javafx.util.Pair;
+import org.springframework.data.util.Pair;
 
 import java.util.List;
 import java.util.Map;
