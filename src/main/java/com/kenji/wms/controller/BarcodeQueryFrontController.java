@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
@@ -75,14 +77,16 @@ public class BarcodeQueryFrontController {
                 pairListEntry -> {
                     Pair<Integer, Integer> key = pairListEntry.getKey();
                     String fromLocation = WarehouseIdMap.fromLocationId(key.getFirst()).toString();
-                    String toLocation = WarehouseIdMap.fromLocationId(key.getFirst()).toString();
+                    String toLocation = WarehouseIdMap.fromLocationId(key.getSecond()).toString();
                     Stream<StockMoveSummaryRecord> objectStream1 = pairListEntry.getValue()
                             .stream()
                             .map(it -> new StockMoveSummaryRecord(it.getProductName(), fromLocation, toLocation, it.getQty()));
                     return objectStream1;
                 }
         );
-        model.addAttribute("summary", objectStream.toArray());
+        List<StockMoveSummaryRecord> collect = objectStream.collect(Collectors.toList());
+        collect.sort(new ListSorter());
+        model.addAttribute("summary", collect);
         return "table-summary";
     }
 
@@ -91,4 +95,19 @@ public class BarcodeQueryFrontController {
             return "0";
         } else return request.getParameter("barcodeInput");
     }
+
+    class ListSorter implements Comparator<StockMoveSummaryRecord>
+    {
+        // Used for sorting in ascending order of
+        // roll number
+        public int compare(StockMoveSummaryRecord a, StockMoveSummaryRecord b)
+        {
+            if (a.getToLocation().equals(b.getToLocation())) {
+                return a.getProductName().compareTo(b.getProductName());
+            } else {
+                return a.getToLocation().compareTo(b.getToLocation());
+            }
+        }
+    }
+
 }

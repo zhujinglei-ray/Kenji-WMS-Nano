@@ -16,4 +16,6 @@ public interface StockTransferService {
     void saveMoveForUsername(String username, Long fromLocation, Long toLocation, Long productId, int qty);
     void saveMoveForUsername(String username, TransferLocationQty transferLocationQty);
     Map<Pair<Integer, Integer>, List<TransferLocationQty>> getTransferMapForUser(String username);
+    void moveForUser(String username);
+    void cleanMoveForUser(String username);
 }

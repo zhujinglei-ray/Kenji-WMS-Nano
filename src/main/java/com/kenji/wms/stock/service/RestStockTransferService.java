@@ -9,7 +9,6 @@ import com.kenji.wms.stock.domain.StockTransferReason;
 import com.kenji.wms.stock.exceptions.FailQueryStockException;
 import com.kenji.wms.stock.repository.BatchMoveRepository;
 import com.kenji.wms.stock.repository.StockTransferRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -77,6 +76,24 @@ public class RestStockTransferService implements StockTransferService {
     @Override
     public Map<Pair<Integer, Integer>, List<TransferLocationQty>> getTransferMapForUser(String username) {
         return batchMoveRepository.getAllMoveByUsername(username);
+    }
+
+    @Override
+    public void moveForUser(String username) {
+        Map<Pair<Integer, Integer>, List<TransferLocationQty>> allMoveByUsername = batchMoveRepository.getAllMoveByUsername(username);
+        allMoveByUsername.forEach((key, value) -> {
+            try {
+                StockTransfer stockTransfer = createStockTransfer((long) key.getFirst(), (long) key.getSecond());
+                value.forEach(one -> createStockTransferItem(stockTransfer, one.getProductId(), one.getQty()));
+            } catch (FailQueryStockException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void cleanMoveForUser(String username) {
+        batchMoveRepository.removeAllTransferItems(username);
     }
 
     private long getNextStockTransferNumber() throws FailQueryStockException {

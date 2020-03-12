@@ -10,6 +10,26 @@ function move() {
     });
 }
 
+function moveAll() {
+    let url = location.origin + "/stockmove/move/";
+    fetch(url, {
+        method: 'POST'
+    }).then(response => {
+        console.log("Moved all cached stock");
+        location.reload();
+    })
+}
+
+function clearAll () {
+    let url = location.origin + "/stockmove/clean/";
+    fetch(url, {
+        method: 'POST'
+    }).then(response => {
+        console.log("Clear all cached stock");
+        location.reload();
+    })
+}
+
 function getNumber(qty) {
     if(qty===""){
         return 0;

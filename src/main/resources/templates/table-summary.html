@@ -129,10 +129,17 @@
         </li>
 
         <!-- Nav Item - Tables -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/tables">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Stock View Table</span></a>
+        </li>
+
+        <!-- Nav Item - Table summary-->
+        <li class="nav-item active">
+            <a class="nav-link" href="/table-summary">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Stock Move Summary</span></a>
         </li>
 
         <!-- Divider -->
@@ -396,17 +403,17 @@
                                 </tr>
                                 </tfoot>
                                 <tbody>
-
-                                <tr th:each="summary: ${summary}">
-                                    <td th:text="${StockMoveSummaryRecord.fromLocation}" />
-                                    <td th:text="${StockMoveSummaryRecord.toLocation}" />
-                                    <td th:text="${StockMoveSummaryRecord.productName}" />
-                                    <td th:text="${StockMoveSummaryRecord.qty}" />
+                                <tr th:each="t: ${summary}">
+                                    <td th:text="${t.fromLocation}"/>
+                                    <td th:text="${t.toLocation}" />
+                                    <td th:text="${t.productName}" />
+                                    <td th:text="${t.qty}" />
                                 </tr>
                                 </tbody>
                             </table>
                             <form class="form0submit">
-                            <input type="submit" value="Move" onclick="move()"/>
+                            <input type="submit" value="Move" onclick="moveAll()"></input>
+                                <button value="Clear" onclick="clearAll()"> Clear</button>
                             </form>
                             <script th:inline="javascript">
                                 /*<![CDATA[*/

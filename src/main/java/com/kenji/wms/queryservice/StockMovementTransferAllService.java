@@ -27,12 +27,13 @@ public class StockMovementTransferAllService {
         return "OK";
     }
 
-    public TransferLocationQty resolveQtyForLocation(WarehouseIdMap map, int qty, Long productId){
+    public TransferLocationQty resolveQtyForLocation(WarehouseIdMap map, int qty, Long productId, String productName){
         TransferLocationQty transferLocationQty = new TransferLocationQty();
         transferLocationQty.setFromLocation((long) WarehouseIdMap.WAREHOUSE.getLocationId());
         transferLocationQty.setToLocation((long)map.getLocationId());
         transferLocationQty.setQty(qty);
         transferLocationQty.setProductId(productId);
+        transferLocationQty.setProductName(productName);
         return transferLocationQty;
     }
 
