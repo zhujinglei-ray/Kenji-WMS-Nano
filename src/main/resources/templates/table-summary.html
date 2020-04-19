@@ -129,14 +129,14 @@
         </li>
 
         <!-- Nav Item - Tables -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/tables">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Stock View Table</span></a>
         </li>
 
         <!-- Nav Item - Table summary-->
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="/table-summary">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Stock Move Summary</span></a>
@@ -388,56 +388,32 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="10">
                                 <thead>
                                 <tr>
+                                    <th>From Location</th>
+                                    <th>To Location</th>
                                     <th>Product Name</th>
-                                    <th style="height: 33px"><span th:text=" ${productName}"></span></th>
-                                    <th>Barcode</th>
-                                    <th style="height: 33px"><span type="text" id="barcode_for_remove" th:text=" ${barcode}"></span></th>
-                                </tr>
-                                <tr>
-                                    <th>Total</th>
-                                    <th>Qty In Stock</th>
-                                    <th>Qty Bury</th>
-                                    <th>Qty Preston</th>
-                                    <th>Qty Warrinton</th>
-                                    <th>Qty Arndale</th>
+                                    <th>Qty</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Total</th>
-                                    <th>Transfered Stock</th>
-                                    <th>Qty to Bury</th>
-                                    <th>Qty to Preston</th>
-                                    <th>Qty to Warrinton</th>
-                                    <th>Qty to Arndale</th>
+                                    <th>From Location</th>
+                                    <th>To Location</th>
+                                    <th>Product Name</th>
+                                    <th>Qty</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <tr>
-                                    <th style="height: 33px"><span th:text=" ${totalQty}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInStock}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInBury}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInPreston}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInWarrinton}"></span></th>
-                                    <th style="height: 33px"><span th:text=" ${qtyInArndale}"></span></th>
-                                </tr>
-
-                                <tr>
-                                    <th><span th:text=" ${totalQty}"></span></th>
-                                    <th><span><input type="number" name="total" id="total" style="border-style:none"/></span></span></th>
-                                    <th><span th:value="${qtyMovedBury}"><input onblur="totalMoved()" id="qtyMovedBury"
-                                                                                style="border-style:none" type="number"/></span></th>
-                                    <th><span th:value="${qtyMovedPreston}"><input onblur="totalMoved()" id="qtyMovedPreston"
-                                                                                   style="border-style:none" type="number"/></span></th>
-                                    <th><span th:value="${qtyMovedWarrinton}"><input onblur="totalMoved()" id="qtyMovedWarrinton"
-                                                                                     style="border-style:none" type="number"/></span></th>
-                                    <th><span th:value="${qtyMovedArndale}"><input onblur="totalMoved()" id="qtyMovedArndale"
-                                                                                   style="border-style:none" type="number"/></span></th>
+                                <tr th:each="t: ${summary}">
+                                    <td th:text="${t.fromLocation}"/>
+                                    <td th:text="${t.toLocation}" />
+                                    <td th:text="${t.productName}" />
+                                    <td th:text="${t.qty}" />
                                 </tr>
                                 </tbody>
                             </table>
                             <form class="form0submit">
-                            <input type="submit" value="Move" onclick="move()"/>
+                            <input type="submit" value="Move" onclick="moveAll()"></input>
+                                <button value="Clear" onclick="clearAll()"> Clear</button>
                             </form>
                             <script th:inline="javascript">
                                 /*<![CDATA[*/

@@ -1,0 +1,16 @@
+.col-sm-12.col-md-6 {
+  display: none;
+}
+
+.container-fluid{
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.auto-font {
+  font-size: 80%;
+}
+
+.limit-input {
+  width: 100%;
+}

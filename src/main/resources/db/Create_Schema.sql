@@ -17,6 +17,14 @@ CREATE TABLE productStock
   stock_json         JSON NOT NULL
 );
 
+DROP TABLE IF EXISTS stockTransfer;
+CREATE TABLE stockTransfer
+(
+  stock_transfer_id           BIGINT PRIMARY KEY NOT NULL,
+  stock_transfer_number         BIGINT NOT NULL,
+  stock_transfer_json         JSON NOT NULL
+);
+
 DROP TABLE IF EXISTS auth_user_role;
 DROP TABLE IF EXISTS auth_role;
 DROP TABLE IF EXISTS auth_user;
