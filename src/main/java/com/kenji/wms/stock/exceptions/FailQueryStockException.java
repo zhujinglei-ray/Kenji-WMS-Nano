@@ -1,6 +1,6 @@
 package com.kenji.wms.stock.exceptions;
 
-public class FailQueryStockException extends Exception {
+public class FailQueryStockException extends RuntimeException {
 
     public FailQueryStockException() {
     }

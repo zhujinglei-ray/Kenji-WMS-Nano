@@ -60,4 +60,13 @@ public class BarcodeQueryService {
             return "NA";
         }
     }
+
+    public String retrieveName(Integer barcodeInput){
+        try {
+            Product foundProduct = restProductQueryService.getProductByBarcode(barcodeInput.toString());
+            return foundProduct.getName();
+        } catch (FailQueryProductException e) {
+            return "NA";
+        }
+    }
 }

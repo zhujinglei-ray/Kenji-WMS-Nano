@@ -5,9 +5,12 @@ import com.kenji.wms.model.domainobject.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.awt.desktop.SystemEventListener;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,9 +49,29 @@ public class PostgresProductRepository implements ProductRepository {
         return productId;
     }
 
+    @Override
+    public Product getProductByProductId(String productId) {
+        String sql = "SELECT product_json FROM products WHERE product_id=?";
+        List<Product> products = jdbcTemplate.query(sql, new ProductRowMapper(), Integer.parseInt(productId));
+        try {
+            return products.get(0);
+        } catch (Exception e) {
+            return new Product();
+        }
+    }
+
+    @Override
+    public String getBarcodeByProductId(String productId) {
+        return null;
+    }
+
     private List<Product> refineProductList(List<Product> products) {
         List<Product> newList = new LinkedList<>();
         products.forEach(product -> {
+            if (product.getBarcode() == null) {
+                System.out.println(product.getName() + "has no barcode");
+                return;
+            }
             if (product.getBarcode().contains(",")) {
                 String[] barcodes = product.getBarcode().split(",");
                 for (String barcode : barcodes) {
@@ -89,12 +112,27 @@ public class PostgresProductRepository implements ProductRepository {
         }
 
         private Long getProductBarcodeAsLong(Product product) {
-            String productBarcode = product.getBarcode();
+            String productBarcode = product.getBarcode().replaceAll("\\s+", "");
             if (productBarcode == null) {
                 return -1L;
             } else {
-                return Long.parseLong(productBarcode);
+                try {
+                    return Long.parseLong(productBarcode);
+                } catch (Exception e) {
+                    System.out.println("Something happened cannot parse the string into long");
+                    return -1L;
+                }
             }
+        }
+    }
+
+    private static final class ProductRowMapper implements RowMapper<Product> {
+
+        @Override
+        public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Gson gson = new Gson();
+            String jsonBody = rs.getString("product_json");
+            return gson.fromJson(jsonBody, Product.class);
         }
     }
 }

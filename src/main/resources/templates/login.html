@@ -98,7 +98,7 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
 <head>
   <title>WebEncyclop - Login</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -116,7 +116,7 @@
       <br /> <input type="text" id="email" name="email" th:placeholder="Email" class="form-control" /> <br /> <input type="password" th:placeholder="Password" id="password" name="password" class="form-control" /> <br />
 
       <div align="center" th:if="${param.error}">
-        <p style="font-size: 20; color: #FF1C19;">Email or Password is invalid.</p>
+        <p style="font-size:20; color: #FF1C19;">Email or Password is invalid.</p>
       </div>
       <button class="btn btn-lg btn-primary" name="Submit" value="Login" type="Submit" th:text="Login" style="margin-right:10px;"></button>
       <a href="/recover-password">Forgot password?</a>
